@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apna Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="topbar">
+    <b>🔥 Apna Restaurant</b>
+    <span id="t1">TABLE 1</span>
+  </div>
+
+  <div class="hero">
+
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h1 style="font-size:22px; line-height:1.2;">Bhookh Lagi Hai?<br><span style="color:#e50000;">Order Karo Yaar! 🔥</span></h1>
+    <div style="background:#111; color:white; font-size:11px; padding:6px 12px; border-radius:20px;">⏱️ 20 min</div>
+  </div>
+
+  <p style="margin-top:6px;">Table <span id="t2">1</span> se order • 50+ dishes ready</p>
+
+  <!-- SEARCH BAR YAHAN PE AYEGA - AB KAAM KAREGA -->
+  <div style="margin-top:14px; position:relative;">
+    <input type="text" id="searchInput" placeholder="🔍 Search karo - Biryani, Pizza, Paneer..."
+    style="width:100%; padding:13px 15px 13px 40px; border-radius:12px; border:1.5px solid #ffcccc; font-size:13px; outline:none; background:white;"
+    onkeyup="searchDishes()">
+    <span style="position:absolute; left:14px; top:13px;">🔍</span>
+  </div>
+
+  <div style="display:flex; gap:8px; margin-top:12px;">
+    <span style="background:#fff0f0; color:#e50000; font-size:10px; padding:5px 10px; border-radius:20px; border:1px solid #ffcccc;">🔥 FREE Delivery</span>
+    <span style="background:#f0f0f0; color:#333; font-size:10px; padding:5px 10px; border-radius:20px;">💰 Offline Price</span>
+    <span style="background:#f0f0f0; color:#333; font-size:10px; padding:5px 10px; border-radius:20px;">⭐ 4.8 Rating</span>
+  </div>
+
+</div>
+  <div class="cats">
+    <button class="active" onclick="filterDish('all',this)">All</button>
+    <button onclick="filterDish('starter',this)">Starter</button>
+    <button onclick="filterDish('main',this)">Main Course</button>
+    <button onclick="filterDish('biryani',this)">Biryani</button>
+    <button onclick="filterDish('drink',this)">Drinks</button>
+  </div>
+
+  <div class="menu" id="menu"></div>
+
+  <div class="cartbar" id="cartbar">
+    <div id="cartItems"></div>
+    <div class="total-row">
+      <b>Total: ₹<span id="total">0</span></b>
+      <small>+ Free Delivery</small>
+    </div>
+    <button onclick="openPay()">Pay ₹<span id="payTotal">0</span> & Order Now</button>
+  </div>
+
+  <!-- Payment QR Modal -->
+  <!-- PAYMENT MODAL - NEW PREMIUM UI -->
+<div id="payModal">
+  <div class="modal-new">
+    
+    <div class="pay-top">
+      <div class="pay-icon">🔒</div>
+      <div>
+        <b>Secure Payment</b>
+        <p>100% Safe & Instant</p>
+      </div>
+      <span onclick="closePay()" class="close-x">✕</span>
+    </div>
+
+    <div class="pay-amount">
+      <p>Payable Amount</p>
+      <h1>₹<span id="mTotal">0</span></h1>
+      <span id="tForPay" style="background:#fff0f0; color:#e50000; font-size:11px; padding:4px 10px; border-radius:20px;">Table 1 ke liye</span>
+    </div>
+
+    <div class="qr-box">
+      <img src="Ayush upadhyay.png" id="myQRImg">
+      <div class="qr-scan-line"></div>
+    </div>
+
+    <h3 style="margin-top:12px;">Ayush Upadhyay</h3>
+    <p style="font-size:11px; color:#888;">UPI ID: apna@upi • Scan with any UPI app</p>
+
+    <div class="upi-apps">
+      <span>📱 GPay</span><span>📱 PhonePe</span><span>📱 Paytm</span><span>📱 BHIM</span>
+    </div>
+
+    <div class="pay-actions">
+      <button class="btn-paid" onclick="paymentDone()">✅ Payment Ho Gaya</button>
+      <button class="btn-cancel" onclick="closePay()">Cancel</button>
+    </div>
+
+    <p style="font-size:10px; color:#aaa; margin-top:10px; text-align:center;">⏱️ QR 5 minute ke liye valid hai • Auto check ho jayega</p>
+
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

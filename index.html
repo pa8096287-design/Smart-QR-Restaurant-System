@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apna Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="red-body">
+
+<div class="red-top">
+  <b>🔥 APNA</b>
+  <span id="t1">TABLE 1</span>
+</div>
+
+<div class="red-hero big-hero">
+  <h1>Bhookh<br>Lagi Hai?<br><span>Toh Order Karo!</span></h1>
+  <p id="tableText">Table 1 pe baithe ho 👇</p>
+  
+  <div class="search-box" onclick="goToMenu()">🔍 Aaj kya khaoge? Menu dekho...</div>
+
+  <div class="hover-cards">
+    <div class="h-card"><div class="h-img">🍛</div><b>Paneer</b><p>₹250</p></div>
+    <div class="h-card"><div class="h-img">🍕</div><b>Pizza</b><p>₹270</p></div>
+    <div class="h-card"><div class="h-img">🍚</div><b>Biryani</b><p>₹300</p></div>
+    <div class="h-card"><div class="h-img">🍔</div><b>Burger</b><p>₹99</p></div>
+  </div>
+
+  <div class="scroll-down">▼ SCROLL KARO ▼</div>
+</div>
+
+<div class="white-section">
+  <h2 style="text-align:center; font-size:18px;">Why 5000+ Log Yahi Se Order Karte Hain?</h2>
+  <div class="why-grid">
+    <div class="why-box"><div style="font-size:24px;">⚡</div><b>20 Min</b><p>Garam khana</p></div>
+    <div class="why-box"><div style="font-size:24px;">💰</div><b>Offline Price</b><p>No charge</p></div>
+    <div class="why-box"><div style="font-size:24px;">🔥</div><b>Fresh</b><p>Order pe banta</p></div>
+    <div class="why-box"><div style="font-size:24px;">⭐</div><b>4.8 Rating</b><p>Top rated</p></div>
+  </div>
+</div>
+
+<div class="black-strip">
+  <h2 style="color:white; text-align:center; font-size:16px;">🔥 Aaj Ke Offers 🔥</h2>
+  <div class="offer-cards">
+    <div class="offer-card"><b>₹99 Thali</b><p>Full veg thali</p><span>GRAB</span></div>
+    <div class="offer-card"><b>BOGO Pizza</b><p>1 pe 1 free</p><span>GRAB</span></div>
+    <div class="offer-card"><b>Free Drink</b><p>₹500 pe free</p><span>GRAB</span></div>
+  </div>
+</div>
+
+<div class="red-cta">
+  <h2>Der Kis Baat Ki?<br>Abhi Order Karo!</h2>
+  <button class="red-btn big-btn" onclick="goToMenu()">👉 MENU KHOLO</button>
+</div>
+
+<script>
+var url = new URLSearchParams(window.location.search);
+var table = url.get('table'); 
+if(table==null){table=1;}
+document.getElementById('t1').innerText="TABLE "+table;
+document.getElementById('tableText').innerText="Table "+table+" pe baithe ho, scroll karo 👇";
+function goToMenu(){ window.location.href="menu.html?table="+table; }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Print QR - 5 Tables</title>
+<style>
+body{font-family:Poppins; padding:20px; text-align:center;}
+.qr-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+.box{border:2px solid #111; padding:15px; border-radius:16px;}
+.box img{width:180px; height:180px;}
+.box b{font-size:18px; display:block; margin-top:8px;}
+@media print{.no-print{display:none;}}
+</style>
+</head>
+<body>
+
+<h2 class="no-print">🔥 Apna Restaurant - 5 Tables QR</h2>
+<p class="no-print">Inko print karke har table pe chipka do</p>
+<button class="no-print" onclick="window.print()" style="background:#e50000; color:white; border:none; padding:12px 30px; border-radius:10px; margin-bottom:20px; cursor:pointer;">🖨️ Print Karo</button>
+
+<div class="qr-grid" id="qrGrid"></div>
+
+<script>
+var yourLink = window.location.origin + window.location.pathname.replace('qrprint.html','') + 'index.html';
+// agar live nahi hai toh manual daal do - jaise: https://tumhari-site.com/index.html
+// var yourLink = "https://tumhari-site.com/index.html"; 
+
+var grid = document.getElementById('qrGrid');
+for(var i=1; i<=5; i++){
+  var tableUrl = yourLink + "?table=" + i;
+  // QR API se QR banao
+  var qrApi = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(tableUrl);
+  
+  grid.innerHTML += '<div class="box"><img src="'+qrApi+'"><b>TABLE '+i+'</b><p style="font-size:10px; word-break:break-all;">'+tableUrl+'</p></div>';
+}
+</script>
+</body>
+</html>

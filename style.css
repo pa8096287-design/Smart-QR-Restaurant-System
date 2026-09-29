@@ -1,0 +1,830 @@
+/* ============================================= */
+/* Apna Restaurant - Final Project CSS           */
+/* Theme - Red Black Premium - Handwritten       */
+/* ============================================= */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color: #f8f8f8;
+}
+
+/* ============ TOP BAR ============ */
+.red-top{
+    background-color: #e50000;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.red-top b{
+    font-size: 20px;
+}
+
+.red-top span{
+    background-color: white;
+    color: #e50000;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ============ LANDING HERO ============ */
+.red-hero{
+    background-color: #111111;
+    color: white;
+    padding: 30px 20px 40px 20px;
+    text-align: left;
+}
+
+.red-hero h1{
+    font-size: 32px;
+    line-height: 1.2;
+}
+
+.red-hero h1 span{
+    color: #ff2e2e;
+}
+
+.red-hero p{
+    color: #999;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.search-box{
+    background-color: white;
+    color: #999;
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin-top: 20px;
+    font-size: 14px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+}
+
+/* landing ke 3 cards */
+.hover-cards{
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    margin-top: 22px;
+    padding-bottom: 10px;
+}
+
+.h-card{
+    min-width: 140px;
+    background-color: white;
+    color: black;
+    border-radius: 16px;
+    padding: 14px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 1px solid #eee;
+}
+
+.h-card:hover{
+    transform: translateY(-8px);
+    background-color: #ffecec;
+    box-shadow: 0px 10px 25px rgba(255,0,0,0.2);
+}
+
+.h-img{
+    font-size: 44px;
+    background-color: #fff0f0;
+    border-radius: 12px;
+    padding: 8px;
+}
+
+.h-card b{
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.h-card p{
+    font-size: 13px;
+    color: #e50000;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+.h-card p s{
+    font-size: 11px;
+    color: #999;
+}
+
+/* ============ WHY SECTION ============ */
+.black-section{
+    background-color: white;
+    padding: 22px 20px 30px 20px;
+    border-radius: 28px 28px 0 0;
+    margin-top: -20px;
+}
+
+.black-section h2{
+    font-size: 18px;
+    color: #111;
+}
+
+.why-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.why-box{
+    background-color: #f9f9f9;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #f0f0f0;
+    transition: 0.3s;
+}
+
+.why-box:hover{
+    background-color: #111;
+    color: white;
+    transform: scale(1.03);
+}
+
+.why-box b{ font-size: 13px; }
+.why-box p{ font-size: 11px; color: #777; margin-top: 2px; }
+.why-box:hover p{ color: #ccc; }
+
+.offer-strip{
+    background-color: #111;
+    color: white;
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 16px;
+    text-align: center;
+    font-size: 13px;
+    border-left: 5px solid #e50000;
+}
+
+.offer-strip b{ color: #ff4d4d; }
+
+.red-btn{
+    width: 100%;
+    background-color: #e50000;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.red-btn:hover{
+    background-color: #000;
+    transform: scale(1.02);
+}
+
+.note{
+    font-size: 11px;
+    color: #888;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* ============ MENU PAGE - YAHAN SE BORING KHATAM HOGA ============ */
+
+.topbar{
+    background-color: #e50000;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.hero{
+    padding: 20px;
+    background-color: white;
+}
+
+.hero h1{ font-size: 20px; }
+.hero p{ font-size: 12px; color: #777; margin-top: 4px; }
+
+/* category buttons */
+.cats{
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px 20px;
+    background-color: white;
+    position: sticky;
+    top: 44px;
+    z-index: 90;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.cats button{
+    border: 1px solid #ffcccc;
+    background-color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.cats button.active{
+    background-color: #e50000;
+    color: white;
+    border-color: #e50000;
+}
+
+.cats button:hover{
+    transform: scale(1.05);
+}
+
+/* YE MAIN FIX HAI - LAPTOP PE 3 CARDS */
+.menu{
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* laptop aur bade screen pe 3 card ek line me */
+@media (min-width: 600px){
+    .menu{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 900px){
+    .menu{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+.dish{
+    background-color: white;
+    padding: 14px;
+    border-radius: 16px;
+    display: flex;
+    gap: 12px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.dish:hover{
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+    border-color: #ffcccc;
+}
+
+.dish-img{
+    width: 75px;
+    height: 75px;
+    background-color: #fff0eb;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    flex-shrink: 0;
+}
+
+.dish-info{
+    flex: 1;
+}
+
+.dish-info h4{
+    font-size: 14px;
+    color: #111;
+}
+
+.dish-info p{
+    font-size: 11px;
+    color: #888;
+    margin-top: 2px;
+}
+
+.price{
+    color: #e50000;
+    font-weight: bold;
+    margin-top: 6px;
+    font-size: 15px;
+}
+
+.addbtn{
+    background-color: #ffffff;
+    color: #e50000;
+    border: 1.5px solid #e50000;
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    height: 32px;
+    transition: 0.2s;
+}
+
+.addbtn:hover{
+    background-color: #e50000;
+    color: white;
+    transform: scale(1.08);
+}
+
+/* cart */
+.cartbar{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 16px 20px;
+    border-radius: 18px 18px 0 0;
+    display: none;
+    box-shadow: 0px -8px 25px rgba(0,0,0,0.1);
+    z-index: 200;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    right: 0;
+}
+
+#cartItems{
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    font-size: 11px;
+}
+
+#cartItems span{
+    background-color: #ffecec;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid #ffcccc;
+}
+
+.total-row{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+.cartbar button{
+    width: 100%;
+    background-color: #111;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* payment popup */
+#payModal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
+}
+
+.modal{
+    background-color: white;
+    padding: 22px;
+    border-radius: 18px;
+    width: 90%;
+    max-width: 350px;
+    text-align: center;
+}
+
+.modal img{
+    width: 220px;
+    height: 220px;
+    margin: 12px 0px;
+    border-radius: 12px;
+}
+/* ============ BADA LANDING PAGE - SCROLL WALA ============ */
+
+.big-hero{
+    padding-bottom: 30px;
+}
+
+.big-hero h1{
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.scroll-down{
+    text-align: center;
+    color: #ff4d4d;
+    font-size: 11px;
+    margin-top: 25px;
+    letter-spacing: 2px;
+    animation: uparNiche 1.5s infinite;
+}
+
+@keyframes uparNiche{
+    0%{ transform: translateY(0px); }
+    50%{ transform: translateY(6px); }
+    100%{ transform: translateY(0px); }
+}
+
+/* section 2 */
+.white-section{
+    padding: 30px 20px;
+}
+
+.section2 h2{
+    text-align: center;
+    font-size: 19px;
+}
+
+.why-grid.icon{
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+.animate-box{
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.6s;
+}
+
+.animate-box.show{
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+/* section 3 - black strip */
+.black-strip{
+    background-color: #111;
+    padding: 30px 20px;
+    overflow: hidden;
+}
+
+.offer-cards{
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    margin-top: 18px;
+    padding-bottom: 10px;
+}
+
+.offer-card{
+    min-width: 200px;
+    background-color: white;
+    border-radius: 16px;
+    padding: 18px;
+    transition: 0.3s;
+    cursor: pointer;
+    border-left: 5px solid #e50000;
+}
+
+.offer-card:hover{
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 0px 10px 25px rgba(255,0,0,0.3);
+}
+
+.offer-card b{
+    font-size: 16px;
+    color: #111;
+}
+
+.offer-card p{
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+}
+
+.offer-card span{
+    display: inline-block;
+    background-color: #e50000;
+    color: white;
+    font-size: 10px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.oc1{ animation: hawaMe 3s infinite; }
+.oc2{ animation: hawaMe 3s infinite 0.5s; }
+.oc3{ animation: hawaMe 3s infinite 1s; }
+
+@keyframes hawaMe{
+    0%,100%{ transform: translateY(0px); }
+    50%{ transform: translateY(-8px); }
+}
+
+/* section 4 - steps */
+.section4 h2{
+    text-align: center;
+    font-size: 18px;
+}
+
+.steps{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 5px;
+}
+
+.step{
+    background-color: #f9f9f9;
+    border-radius: 14px;
+    padding: 14px;
+    text-align: center;
+    flex: 1;
+    border: 1px solid #f0f0f0;
+    transition: 0.3s;
+}
+
+.step:hover{
+    background-color: #111;
+    color: white;
+    transform: translateY(-6px);
+}
+
+.step-no{
+    width: 32px;
+    height: 32px;
+    background-color: #e50000;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px auto;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.step b{
+    font-size: 12px;
+    display: block;
+}
+
+.step p{
+    font-size: 10px;
+    color: #777;
+    margin-top: 3px;
+}
+
+.step:hover p{ color: #ccc; }
+
+.arrow{
+    font-size: 18px;
+    color: #e50000;
+    font-weight: bold;
+}
+
+/* section 5 - final red cta */
+.red-cta{
+    background-color: #e50000;
+    color: white;
+    padding: 40px 20px 50px 20px;
+    text-align: center;
+    border-radius: 30px 30px 0 0;
+    margin-top: 10px;
+}
+
+.red-cta h2{
+    font-size: 28px;
+    line-height: 1.1;
+    font-weight: 800;
+}
+
+.red-cta p{
+    font-size: 13px;
+    color: #ffcccc;
+    margin-top: 10px;
+}
+
+.big-btn{
+    background-color: white;
+    color: #e50000;
+    font-size: 18px;
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+}
+
+.big-btn:hover{
+    background-color: black;
+    color: white;
+    transform: scale(1.03);
+}
+
+.small-note{
+    margin-top: 12px;
+    font-size: 11px;
+    color: #ffcccc;
+}
+
+/* scroll smooth */
+html{
+    scroll-behavior: smooth;
+}
+/* ============ NEW PAYMENT MODAL - PREMIUM ============ */
+
+#payModal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 500;
+    backdrop-filter: blur(4px);
+}
+
+.modal-new{
+    background-color: white;
+    width: 90%;
+    max-width: 360px;
+    border-radius: 22px;
+    padding: 18px;
+    text-align: center;
+    animation: popupAao 0.3s ease;
+}
+
+@keyframes popupAao{
+    0%{ transform: scale(0.8); opacity: 0; }
+    100%{ transform: scale(1); opacity: 1; }
+}
+
+.pay-top{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f9f9f9;
+    padding: 10px 12px;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.pay-icon{
+    width: 36px;
+    height: 36px;
+    background-color: #111;
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.pay-top b{ font-size: 13px; }
+.pay-top p{ font-size: 10px; color: #777; }
+
+.close-x{
+    margin-left: auto;
+    background-color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid #eee;
+}
+
+.pay-amount{
+    margin-top: 16px;
+}
+
+.pay-amount p{
+    font-size: 11px;
+    color: #888;
+}
+
+.pay-amount h1{
+    font-size: 38px;
+    font-weight: 800;
+    color: #111;
+    margin: 4px 0px;
+}
+
+/* QR wala box */
+.qr-box{
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 14px auto 0px auto;
+    background-color: white;
+    border-radius: 16px;
+    border: 2px solid #f0f0f0;
+    padding: 8px;
+    overflow: hidden;
+}
+
+.qr-box img{
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+/* scan line jo upar neeche hilegi */
+.qr-scan-line{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #e50000;
+    box-shadow: 0px 0px 10px #e50000;
+    animation: scanChalo 2s infinite;
+}
+
+@keyframes scanChalo{
+    0%{ top: 10%; }
+    50%{ top: 90%; }
+    100%{ top: 10%; }
+}
+
+.upi-apps{
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+}
+
+.upi-apps span{
+    font-size: 10px;
+    background-color: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid #eee;
+}
+
+.pay-actions{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.btn-paid{
+    background-color: #00a651;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-paid:hover{
+    background-color: #008a43;
+    transform: scale(1.03);
+}
+
+.btn-cancel{
+    background-color: white;
+    color: #111;
+    border: 1.5px solid #eee;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    cursor: pointer;
+}
