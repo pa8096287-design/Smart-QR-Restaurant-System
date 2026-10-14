@@ -1,4 +1,4 @@
-// Apna Restaurant - Javascript - Handwritten
+// Apna Restaurant - 
 // Saare dishes ka data
 
 var allDishes = [
@@ -25,8 +25,24 @@ var urlParams = new URLSearchParams(window.location.search);
 var tableNo = urlParams.get('table');
 if(tableNo == null){ tableNo = 1; }
 
-// page load pe menu dikhao
-showMenu(allDishes);
+// page load pe theme aur menu load karo
+window.onload = function() {
+    var savedTheme = localStorage.getItem('restaurant_theme');
+    if(savedTheme === 'dark'){
+        document.body.classList.add('dark-mode');
+    }
+    showMenu(allDishes);
+};
+
+// Global Theme Toggle Function with Storage
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    if(document.body.classList.contains('dark-mode')){
+        localStorage.setItem('restaurant_theme', 'dark');
+    } else {
+        localStorage.setItem('restaurant_theme', 'light');
+    }
+}
 
 // menu dikhane ka function
 function showMenu(dishes){
@@ -40,29 +56,25 @@ function showMenu(dishes){
     }
     menuDiv.innerHTML = html;
 
-    // agar dish nahi mili
     if(dishes.length == 0){
         menuDiv.innerHTML = '<p style="text-align:center; color:gray; padding:20px;">Koi dish nahi mili 😕</p>';
     }
 }
 
-// SEARCH WALA FUNCTION - YE NAYA HAI
+// SEARCH WALA FUNCTION
 function searchDishes(){
     var input = document.getElementById('searchInput');
-    var word = input.value.toLowerCase(); // jo type kiya
-    console.log("Search kiya: " + word);
+    if(!input) return;
+    var word = input.value.toLowerCase(); 
 
-    // filter karo
     var filtered = [];
     for(var i=0; i<allDishes.length; i++){
         var dishName = allDishes[i].name.toLowerCase();
         var dishCat = allDishes[i].cat.toLowerCase();
         var dishDesc = allDishes[i].desc.toLowerCase();
 
-        // agar naam ya category me word hai to add karo
         if(dishName.includes(word) || dishCat.includes(word) || dishDesc.includes(word)){
-            // aur agar category filter bhi match ho raha hai
-            if(currentCat == "All" || allDishes[i].cat == currentCat){
+            if(currentCat == "All" || allDishes[i].cat.toLowerCase() == currentCat.toLowerCase()){
                 filtered.push(allDishes[i]);
             }
         }
@@ -75,24 +87,22 @@ function searchDishes(){
 function filterCat(cat){
     currentCat = cat;
 
-    // button active karo
     var btns = document.querySelectorAll('.cats button');
     for(var i=0; i<btns.length; i++){
         btns[i].classList.remove('active');
-        if(btns[i].innerText == cat){
+        if(btns[i].innerText.toLowerCase() === cat.toLowerCase()){
             btns[i].classList.add('active');
         }
     }
 
-    // search wala word bhi check karo
     var input = document.getElementById('searchInput');
     var word = "";
     if(input){ word = input.value.toLowerCase(); }
 
     var filtered = [];
     for(var j=0; j<allDishes.length; j++){
-        var matchCat = (cat == "All" || allDishes[j].cat == cat);
-        var matchSearch = (allDishes[j].name.toLowerCase().includes(word) || allDishes[j].cat.toLowerCase().includes(word));
+        var matchCat = (cat == "All" || allDishes[j].cat.toLowerCase() == cat.toLowerCase());
+        var matchSearch = (allDishes[j].name.toLowerCase().includes(word) || allDishes[j].cat.toLowerCase().includes(word) || allDishes[j].desc.toLowerCase().includes(word));
 
         if(matchCat && matchSearch){
             filtered.push(allDishes[j]);
@@ -106,13 +116,19 @@ function filterCat(cat){
 function addToCart(index, name, price){
     cart.push({name:name, price:price});
     updateCart();
+
+    if(navigator.vibrate){
+        navigator.vibrate(50);
+    }
 }
 
-// CART UPDATE - REMOVE WALA NAYA CODE
+// CART UPDATE
 function updateCart(){
     var cartDiv = document.getElementById('cartbar');
     var itemsDiv = document.getElementById('cartItems');
-    var totalDiv = document.getElementById('totalPrice');
+    var totalRowDiv = document.querySelector('.total-row');
+
+    if(!cartDiv || !itemsDiv) return;
 
     if(cart.length == 0){
         cartDiv.style.display = "none";
@@ -124,23 +140,21 @@ function updateCart(){
     var itemsHtml = "";
     var total = 0;
     for(var i=0; i<cart.length; i++){
-        // har item pe cross button
-        itemsHtml += "<span style='display:inline-flex; align-items:center; gap:6px;'>"+cart[i].name+" ₹"+cart[i].price+" <b onclick='removeOne("+i+")' style='background:black; color:white; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:10px;'>✕</b></span>";
+        itemsHtml += "<span style='display:inline-flex; align-items:center; gap:6px;'>"+cart[i].name+" ₹"+cart[i].price+" <b onclick='removeOne("+i+")' style='background:black; color:white; width:16px; height:16px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; font-size:10px;'>✕</b></span>";
         total = total + cart[i].price;
     }
 
     itemsDiv.innerHTML = itemsHtml;
-    totalDiv.innerText = "Total ₹" + total;
-
-    // neeche total row me clear button bhi add karo
-    document.querySelector('.total-row').innerHTML = '<span><b>'+cart.length+' items</b> | Total <b id="totalPrice">₹'+total+'</b></span><span onclick="clearCart()" style="color:#e50000; font-size:12px; cursor:pointer; font-weight:bold;">Clear All 🗑️</span>';
+    
+    if(totalRowDiv){
+        totalRowDiv.innerHTML = '<span><b>'+cart.length+' items</b> | Total <b id="totalPrice">₹'+total+'</b></span><span onclick="clearCart()" style="color:#fc8019; font-size:12px; cursor:pointer; font-weight:bold;">Clear All 🗑️</span>';
+    }
 }
 
 // ek item remove karo
 function removeOne(index){
-    cart.splice(index, 1); // ek item hataya
+    cart.splice(index, 1);
     updateCart();
-    console.log("Item remove kiya index: " + index);
 }
 
 // pura cart khali karo
@@ -151,25 +165,62 @@ function clearCart(){
     }
 }
 
-// Add to cart - purana wala
-function addToCart(index, name, price){
-    cart.push({name:name, price:price});
-    updateCart();
+function openPay(){
+    var totalPriceElem = document.getElementById('totalPrice');
+    var totalVal = totalPriceElem ? totalPriceElem.innerText.replace('Total ₹','').replace('₹','').trim() : '0';
+    
+    var mTotalElem = document.getElementById('mTotal');
+    if(mTotalElem) mTotalElem.innerText = totalVal;
 
-    // halki vibration feel - mobile pe
-    if(navigator.vibrate){
-        navigator.vibrate(50);
+    var payTotalElem = document.getElementById('payTotal');
+    if(payTotalElem) payTotalElem.innerText = totalVal;
+
+    var payModal = document.getElementById('payModal');
+    if(payModal) payModal.style.display = "flex";
+
+    var upiLink = "upi://pay?pa=apna@upi&pn=Ayush Upadhyay&am="+totalVal+"&cu=INR";
+    var qrImg = document.getElementById('myQRImg');
+    if(qrImg){
+        qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(upiLink);
     }
 }
 
-function openPay(){
-    document.getElementById('payModal').style.display = "flex";
-    // QR generate karo table ke hisab se
-    var upiLink = "upi://pay?pa=apna@upi&pn=Apna Restaurant&am="+document.getElementById('totalPrice').innerText.replace('Total ₹','')+"&cu=INR";
-    // yahan QR code API
-    document.getElementById('qrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + upiLink;
+function closePay(){
+    var payModal = document.getElementById('payModal');
+    if(payModal) payModal.style.display = "none";
 }
 
-function closePay(){
-    document.getElementById('payModal').style.display = "none";
+// Yeh function backend server par order bhejega
+function sendOrderToBackend() {
+    var totalPriceElem = document.getElementById('totalPrice');
+    var totalVal = totalPriceElem ? totalPriceElem.innerText.replace('Total ₹','').replace('₹','').trim() : '0';
+
+    var orderData = {
+        tableNo: tableNo,
+        items: cart,
+        totalAmount: parseFloat(totalVal)
+    };
+
+    fetch('http://localhost:5000/api/orders', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success) {
+            alert('Order successfully kitchen tak pahunch gaya! 🎉');
+            cart = [];
+            updateCart();
+            closePay();
+        } else {
+            alert('Order save karne mein kuch dikkat aayi.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Server se connect nahi ho pa raha bhai! Check karo ki server chal raha hai ya nahi.');
+    });
 }

@@ -1,6 +1,5 @@
 /* ============================================= */
-/* Apna Restaurant - Final Project CSS           */
-/* Theme - Red Black Premium - Handwritten       */
+/* Apna Restaurant - Swiggy Inspired Full CSS    */
 /* ============================================= */
 
 *{
@@ -8,301 +7,342 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 body{
-    background-color: #f8f8f8;
+    background-color: #f8f9fa;
+    color: #3d4152;
+    overflow-x: hidden;
 }
 
 /* ============ TOP BAR ============ */
 .red-top{
-    background-color: #e50000;
-    color: white;
-    padding: 12px 20px;
+    background: #ffffff;
+    color: #3d4152;
+    padding: 15px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .red-top b{
     font-size: 20px;
+    letter-spacing: 0.5px;
+    color: #fc8019;
 }
 
 .red-top span{
-    background-color: white;
-    color: #e50000;
-    padding: 5px 14px;
-    border-radius: 20px;
+    background: #fc8019;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 8px;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 /* ============ LANDING HERO ============ */
 .red-hero{
-    background-color: #111111;
+    background: #fc8019;
     color: white;
-    padding: 30px 20px 40px 20px;
+    padding: 40px 24px 50px 24px;
     text-align: left;
 }
 
 .red-hero h1{
-    font-size: 32px;
+    font-size: 34px;
     line-height: 1.2;
+    font-weight: 800;
 }
 
 .red-hero h1 span{
-    color: #ff2e2e;
+    color: #fff3e0;
 }
 
 .red-hero p{
-    color: #999;
-    font-size: 13px;
+    color: #ffe0b2;
+    font-size: 13.5px;
     margin-top: 8px;
 }
 
 .search-box{
-    background-color: white;
-    color: #999;
-    padding: 14px 16px;
+    background: #ffffff;
+    color: #686b78;
+    padding: 16px 20px;
     border-radius: 12px;
-    margin-top: 20px;
-    font-size: 14px;
-    box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+    margin-top: 24px;
+    font-size: 14.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.search-box:hover{
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
 /* landing ke 3 cards */
 .hover-cards{
     display: flex;
-    gap: 12px;
+    gap: 15px;
     overflow-x: auto;
-    margin-top: 22px;
+    margin-top: 26px;
     padding-bottom: 10px;
+    scrollbar-width: none;
 }
+.hover-cards::-webkit-scrollbar { display: none; }
 
 .h-card{
-    min-width: 140px;
-    background-color: white;
-    color: black;
+    min-width: 150px;
+    background: #ffffff;
+    color: #3d4152;
     border-radius: 16px;
-    padding: 14px;
+    padding: 18px;
     text-align: center;
-    transition: 0.3s;
+    transition: all 0.2s ease;
     cursor: pointer;
-    border: 1px solid #eee;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f5;
 }
 
 .h-card:hover{
-    transform: translateY(-8px);
-    background-color: #ffecec;
-    box-shadow: 0px 10px 25px rgba(255,0,0,0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .h-img{
-    font-size: 44px;
-    background-color: #fff0f0;
+    font-size: 40px;
+    background: #fff5ed;
     border-radius: 12px;
     padding: 8px;
+    display: inline-block;
 }
 
 .h-card b{
     display: block;
     margin-top: 10px;
-    font-size: 13px;
+    font-size: 13.5px;
+    color: #282c3f;
 }
 
 .h-card p{
-    font-size: 13px;
-    color: #e50000;
-    font-weight: bold;
+    font-size: 13.5px;
+    color: #fc8019;
+    font-weight: 700;
     margin-top: 4px;
 }
 
 .h-card p s{
     font-size: 11px;
-    color: #999;
+    color: #93959f;
 }
 
 /* ============ WHY SECTION ============ */
 .black-section{
-    background-color: white;
-    padding: 22px 20px 30px 20px;
-    border-radius: 28px 28px 0 0;
-    margin-top: -20px;
+    background: #ffffff;
+    color: #3d4152;
+    padding: 35px 24px 40px 24px;
+    border-radius: 24px 24px 0 0;
+    margin-top: -15px;
+    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.04);
 }
 
 .black-section h2{
     font-size: 18px;
-    color: #111;
+    color: #282c3f;
+    font-weight: 700;
 }
 
 .why-grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 14px;
+    gap: 15px;
+    margin-top: 16px;
 }
 
 .why-box{
-    background-color: #f9f9f9;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid #f0f0f0;
-    transition: 0.3s;
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px solid #f0f0f5;
+    transition: all 0.2s ease;
 }
 
 .why-box:hover{
-    background-color: #111;
-    color: white;
-    transform: scale(1.03);
+    background: #fff5ed;
+    border-color: #ffd8bd;
 }
 
-.why-box b{ font-size: 13px; }
-.why-box p{ font-size: 11px; color: #777; margin-top: 2px; }
-.why-box:hover p{ color: #ccc; }
+.why-box b{ font-size: 13.5px; color: #282c3f; }
+.why-box p{ font-size: 11.5px; color: #686b78; margin-top: 3px; }
 
 .offer-strip{
-    background-color: #111;
-    color: white;
-    padding: 12px;
+    background: #fff5ed;
+    color: #282c3f;
+    padding: 14px;
     border-radius: 12px;
-    margin-top: 16px;
+    margin-top: 18px;
     text-align: center;
     font-size: 13px;
-    border-left: 5px solid #e50000;
+    border-left: 4px solid #fc8019;
+    border: 1px solid #ffd8bd;
 }
 
-.offer-strip b{ color: #ff4d4d; }
+.offer-strip b{ color: #fc8019; }
 
 .red-btn{
     width: 100%;
-    background-color: #e50000;
+    background: #fc8019;
     color: white;
     border: none;
     padding: 16px;
-    border-radius: 14px;
+    border-radius: 12px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     margin-top: 20px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(252, 128, 25, 0.3);
 }
 
 .red-btn:hover{
-    background-color: #000;
-    transform: scale(1.02);
+    background: #e67312;
 }
 
 .note{
     font-size: 11px;
-    color: #888;
+    color: #93959f;
     text-align: center;
     margin-top: 10px;
 }
 
-/* ============ MENU PAGE - YAHAN SE BORING KHATAM HOGA ============ */
-
+/* ============ MENU PAGE ============ */
 .topbar{
-    background-color: #e50000;
-    color: white;
-    padding: 12px 20px;
+    background: #ffffff;
+    color: #3d4152;
+    padding: 15px 24px;
     display: flex;
     justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .hero{
-    padding: 20px;
-    background-color: white;
+    padding: 24px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f0f5;
 }
 
-.hero h1{ font-size: 20px; }
-.hero p{ font-size: 12px; color: #777; margin-top: 4px; }
+.hero h1{ font-size: 22px; color: #282c3f; font-weight: 700; }
+.hero p{ font-size: 12px; color: #686b78; margin-top: 4px; }
+
+.hero input[type="text"], .hero .menu-search, .search-bar-menu {
+    width: 100%;
+    background: #f4f5f7;
+    color: #282c3f;
+    padding: 14px 18px;
+    border-radius: 12px;
+    margin-top: 15px;
+    font-size: 14px;
+    border: 1px solid #e0e0e0;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.hero input[type="text"]:focus, .hero .menu-search:focus {
+    border-color: #fc8019;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(252, 128, 25, 0.15);
+}
 
 /* category buttons */
 .cats{
     display: flex;
     gap: 10px;
     overflow-x: auto;
-    padding: 10px 20px;
-    background-color: white;
+    padding: 12px 24px;
+    background-color: #ffffff;
     position: sticky;
-    top: 44px;
+    top: 55px;
     z-index: 90;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f5;
+    scrollbar-width: none;
 }
+.cats::-webkit-scrollbar { display: none; }
 
 .cats button{
-    border: 1px solid #ffcccc;
-    background-color: white;
-    padding: 8px 16px;
+    border: 1px solid #d4d5d9;
+    background-color: #ffffff;
+    color: #686b78;
+    padding: 8px 18px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 13.5px;
+    font-weight: 600;
     white-space: nowrap;
-    transition: 0.2s;
+    transition: all 0.2s ease;
 }
 
 .cats button.active{
-    background-color: #e50000;
-    color: white;
-    border-color: #e50000;
+    background-color: #282c3f;
+    color: #ffffff;
+    border-color: #282c3f;
+    font-weight: 700;
 }
 
 .cats button:hover{
-    transform: scale(1.05);
+    border-color: #282c3f;
+    color: #282c3f;
 }
 
-/* YE MAIN FIX HAI - LAPTOP PE 3 CARDS */
+/* MENU GRID */
 .menu{
-    padding: 15px;
+    padding: 20px;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 16px;
     max-width: 1100px;
     margin: 0 auto;
 }
 
-/* laptop aur bade screen pe 3 card ek line me */
 @media (min-width: 600px){
-    .menu{
-        grid-template-columns: 1fr 1fr;
-    }
+    .menu{ grid-template-columns: 1fr 1fr; }
 }
 
 @media (min-width: 900px){
-    .menu{
-        grid-template-columns: 1fr 1fr 1fr;
-    }
+    .menu{ grid-template-columns: 1fr 1fr 1fr; }
 }
 
 .dish{
-    background-color: white;
-    padding: 14px;
+    background-color: #ffffff;
+    padding: 16px;
     border-radius: 16px;
     display: flex;
-    gap: 12px;
-    border: 1px solid #f0f0f0;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
-    transition: 0.3s;
+    gap: 14px;
+    border: 1px solid #f0f0f5;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: all 0.2s ease;
     cursor: pointer;
 }
 
 .dish:hover{
-    transform: translateY(-5px);
-    box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
-    border-color: #ffcccc;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
 }
 
 .dish-img{
-    width: 75px;
-    height: 75px;
-    background-color: #fff0eb;
-    border-radius: 14px;
+    width: 78px;
+    height: 78px;
+    background-color: #fff5ed;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -315,41 +355,42 @@ body{
 }
 
 .dish-info h4{
-    font-size: 14px;
-    color: #111;
+    font-size: 15px;
+    color: #282c3f;
+    font-weight: 700;
 }
 
 .dish-info p{
-    font-size: 11px;
-    color: #888;
-    margin-top: 2px;
+    font-size: 11.5px;
+    color: #686b78;
+    margin-top: 3px;
 }
 
 .price{
-    color: #e50000;
-    font-weight: bold;
+    color: #282c3f;
+    font-weight: 700;
     margin-top: 6px;
     font-size: 15px;
 }
 
 .addbtn{
     background-color: #ffffff;
-    color: #e50000;
-    border: 1.5px solid #e50000;
+    color: #1ba672;
+    border: 1px solid #d4d5d9;
     padding: 6px 18px;
-    border-radius: 20px;
-    margin-top: 20px;
+    border-radius: 8px;
+    margin-top: 15px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 12px;
     height: 32px;
-    transition: 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
 }
 
 .addbtn:hover{
-    background-color: #e50000;
-    color: white;
-    transform: scale(1.08);
+    border-color: #1ba672;
+    background: #f0fdf4;
 }
 
 /* cart */
@@ -358,100 +399,76 @@ body{
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: white;
-    padding: 16px 20px;
-    border-radius: 18px 18px 0 0;
+    background-color: #ffffff;
+    padding: 16px 24px;
+    border-radius: 20px 20px 0 0;
     display: none;
-    box-shadow: 0px -8px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.1);
     z-index: 200;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
     right: 0;
+    border-top: 1px solid #e0e0e0;
 }
 
 #cartItems{
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
-    font-size: 11px;
+    font-size: 11.5px;
 }
 
 #cartItems span{
-    background-color: #ffecec;
-    padding: 5px 10px;
-    border-radius: 20px;
-    border: 1px solid #ffcccc;
+    background-color: #fff5ed;
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: 1px solid #ffd8bd;
+    color: #282c3f;
 }
 
 .total-row{
     display: flex;
     justify-content: space-between;
     margin-top: 12px;
-    font-size: 14px;
+    font-size: 14.5px;
+    color: #282c3f;
+    font-weight: 700;
 }
 
 .cartbar button{
     width: 100%;
-    background-color: #111;
+    background-color: #fc8019;
     color: white;
     padding: 14px;
     border: none;
     border-radius: 12px;
     margin-top: 12px;
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(252, 128, 25, 0.3);
 }
 
-/* payment popup */
-#payModal{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 300;
-}
-
-.modal{
-    background-color: white;
-    padding: 22px;
-    border-radius: 18px;
-    width: 90%;
-    max-width: 350px;
-    text-align: center;
-}
-
-.modal img{
-    width: 220px;
-    height: 220px;
-    margin: 12px 0px;
-    border-radius: 12px;
-}
 /* ============ BADA LANDING PAGE - SCROLL WALA ============ */
-
 .big-hero{
-    padding-bottom: 30px;
+    padding-bottom: 35px;
 }
 
 .big-hero h1{
-    font-size: 42px;
+    font-size: 38px;
     font-weight: 800;
-    line-height: 1;
-    letter-spacing: -1px;
+    line-height: 1.15;
 }
 
 .scroll-down{
     text-align: center;
-    color: #ff4d4d;
-    font-size: 11px;
+    color: #ffffff;
+    font-size: 11.5px;
     margin-top: 25px;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     animation: uparNiche 1.5s infinite;
+    font-weight: 600;
 }
 
 @keyframes uparNiche{
@@ -460,14 +477,15 @@ body{
     100%{ transform: translateY(0px); }
 }
 
-/* section 2 */
 .white-section{
-    padding: 30px 20px;
+    padding: 35px 24px;
+    background-color: #ffffff;
 }
 
 .section2 h2{
     text-align: center;
-    font-size: 19px;
+    font-size: 18px;
+    color: #282c3f;
 }
 
 .why-grid.icon{
@@ -478,7 +496,7 @@ body{
 .animate-box{
     opacity: 0;
     transform: translateY(20px);
-    transition: 0.6s;
+    transition: 0.6s ease;
 }
 
 .animate-box.show{
@@ -486,56 +504,76 @@ body{
     transform: translateY(0px);
 }
 
-/* section 3 - black strip */
+/* ============ SECTION 3 - TODAYS SPECIAL OFFERS (SWIGGY STYLE) ============ */
 .black-strip{
-    background-color: #111;
-    padding: 30px 20px;
+    background: #f8f9fa !important;
+    padding: 35px 24px !important;
     overflow: hidden;
+    border-top: 1px solid #e0e0e0 !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    box-shadow: none !important;
+}
+
+.black-strip h2, .black-strip h3, .black-strip div[style*="color"], .black-strip span {
+    color: #282c3f !important;
+}
+
+.black-strip p {
+    color: #686b78 !important;
 }
 
 .offer-cards{
     display: flex;
-    gap: 14px;
+    gap: 16px;
     overflow-x: auto;
     margin-top: 18px;
     padding-bottom: 10px;
+    scrollbar-width: none;
 }
+.offer-cards::-webkit-scrollbar { display: none; }
 
 .offer-card{
-    min-width: 200px;
-    background-color: white;
-    border-radius: 16px;
-    padding: 18px;
-    transition: 0.3s;
+    min-width: 220px;
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    transition: all 0.2s ease !important;
     cursor: pointer;
-    border-left: 5px solid #e50000;
+    border-left: 5px solid #fc8019 !important;
+    border-top: 1px solid #e0e0e0 !important;
+    border-right: 1px solid #e0e0e0 !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
 }
 
 .offer-card:hover{
-    transform: scale(1.05) rotate(1deg);
-    box-shadow: 0px 10px 25px rgba(255,0,0,0.3);
+    transform: translateY(-4px) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
+    border-color: #fc8019 !important;
 }
 
 .offer-card b{
-    font-size: 16px;
-    color: #111;
+    font-size: 16px !important;
+    color: #282c3f !important;
 }
 
 .offer-card p{
-    font-size: 12px;
-    color: #666;
-    margin-top: 4px;
+    font-size: 12px !important;
+    color: #686b78 !important;
+    margin-top: 4px !important;
 }
 
-.offer-card span{
-    display: inline-block;
-    background-color: #e50000;
-    color: white;
-    font-size: 10px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    margin-top: 10px;
-    font-weight: bold;
+.offer-card span, .offer-card button, .offer-card .grab-btn{
+    display: inline-block !important;
+    background-color: #fff5ed !important;
+    color: #fc8019 !important;
+    font-size: 11px !important;
+    padding: 6px 14px !important;
+    border-radius: 8px !important;
+    margin-top: 12px !important;
+    font-weight: 700 !important;
+    border: 1px solid #ffd8bd !important;
+    box-shadow: none !important;
 }
 
 .oc1{ animation: hawaMe 3s infinite; }
@@ -544,13 +582,14 @@ body{
 
 @keyframes hawaMe{
     0%,100%{ transform: translateY(0px); }
-    50%{ transform: translateY(-8px); }
+    50%{ transform: translateY(-6px); }
 }
 
 /* section 4 - steps */
 .section4 h2{
     text-align: center;
     font-size: 18px;
+    color: #282c3f;
 }
 
 .steps{
@@ -558,114 +597,115 @@ body{
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
-    gap: 5px;
+    gap: 6px;
 }
 
 .step{
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-radius: 14px;
-    padding: 14px;
+    padding: 16px 12px;
     text-align: center;
     flex: 1;
-    border: 1px solid #f0f0f0;
-    transition: 0.3s;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: all 0.2s ease;
 }
 
 .step:hover{
-    background-color: #111;
-    color: white;
-    transform: translateY(-6px);
+    border-color: #fc8019;
+    transform: translateY(-4px);
 }
 
 .step-no{
-    width: 32px;
-    height: 32px;
-    background-color: #e50000;
-    color: white;
+    width: 34px;
+    height: 34px;
+    background-color: #fff5ed;
+    color: #fc8019;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 8px auto;
-    font-weight: bold;
+    margin: 0 auto 10px auto;
+    font-weight: 700;
     font-size: 14px;
+    border: 1px solid #ffd8bd;
 }
 
 .step b{
     font-size: 12px;
     display: block;
+    color: #282c3f;
 }
 
 .step p{
     font-size: 10px;
-    color: #777;
+    color: #686b78;
     margin-top: 3px;
 }
 
-.step:hover p{ color: #ccc; }
-
 .arrow{
     font-size: 18px;
-    color: #e50000;
+    color: #fc8019;
     font-weight: bold;
 }
 
-/* section 5 - final red cta */
+/* section 5 - final cta */
 .red-cta{
-    background-color: #e50000;
+    background: #282c3f;
     color: white;
-    padding: 40px 20px 50px 20px;
+    padding: 45px 24px 55px 24px;
     text-align: center;
-    border-radius: 30px 30px 0 0;
-    margin-top: 10px;
+    border-radius: 28px 28px 0 0;
+    margin-top: 15px;
 }
 
 .red-cta h2{
-    font-size: 28px;
-    line-height: 1.1;
+    font-size: 26px;
+    line-height: 1.2;
     font-weight: 800;
 }
 
 .red-cta p{
     font-size: 13px;
-    color: #ffcccc;
+    color: #93959f;
     margin-top: 10px;
 }
 
 .big-btn{
-    background-color: white;
-    color: #e50000;
-    font-size: 18px;
-    padding: 18px;
-    border-radius: 16px;
-    box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+    background-color: #fc8019;
+    color: white;
+    font-size: 16px;
+    padding: 16px 28px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(252, 128, 25, 0.4);
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .big-btn:hover{
-    background-color: black;
-    color: white;
-    transform: scale(1.03);
+    background-color: #e67312;
 }
 
 .small-note{
     margin-top: 12px;
     font-size: 11px;
-    color: #ffcccc;
+    color: #93959f;
 }
 
-/* scroll smooth */
 html{
     scroll-behavior: smooth;
 }
-/* ============ NEW PAYMENT MODAL - PREMIUM ============ */
 
+/* ============ PAYMENT MODAL ============ */
 #payModal{
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(40, 44, 63, 0.7);
     display: none;
     justify-content: center;
     align-items: center;
@@ -674,56 +714,63 @@ html{
 }
 
 .modal-new{
-    background-color: white;
+    background-color: #ffffff;
+    color: #282c3f;
     width: 90%;
     max-width: 360px;
-    border-radius: 22px;
-    padding: 18px;
+    border-radius: 20px;
+    padding: 20px;
     text-align: center;
-    animation: popupAao 0.3s ease;
-}
-
-@keyframes popupAao{
-    0%{ transform: scale(0.8); opacity: 0; }
-    100%{ transform: scale(1); opacity: 1; }
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border: 1px solid #e0e0e0;
 }
 
 .pay-top{
     display: flex;
     align-items: center;
     gap: 10px;
-    background-color: #f9f9f9;
-    padding: 10px 12px;
+    background-color: #f8f9fa;
+    padding: 12px 14px;
     border-radius: 12px;
     text-align: left;
+    border: 1px solid #e0e0e0;
 }
 
 .pay-icon{
-    width: 36px;
-    height: 36px;
-    background-color: #111;
-    color: white;
+    width: 38px;
+    height: 38px;
+    background-color: #fff5ed;
+    color: #fc8019;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 16px;
+    font-weight: 700;
+    border: 1px solid #ffd8bd;
 }
 
-.pay-top b{ font-size: 13px; }
-.pay-top p{ font-size: 10px; color: #777; }
+.pay-top b{ font-size: 13px; color: #282c3f; }
+.pay-top p{ font-size: 10px; color: #686b78; }
 
 .close-x{
     margin-left: auto;
-    background-color: white;
-    width: 28px;
-    height: 28px;
+    background-color: #f4f5f7;
+    color: #282c3f;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 1px solid #eee;
+    border: 1px solid #d4d5d9;
+}
+
+.close-x:hover{
+    background-color: #fc8019;
+    color: white;
+    border-color: #fc8019;
 }
 
 .pay-amount{
@@ -732,99 +779,149 @@ html{
 
 .pay-amount p{
     font-size: 11px;
-    color: #888;
+    color: #686b78;
 }
 
 .pay-amount h1{
-    font-size: 38px;
+    font-size: 36px;
     font-weight: 800;
-    color: #111;
+    color: #fc8019;
     margin: 4px 0px;
 }
 
-/* QR wala box */
 .qr-box{
     position: relative;
-    width: 220px;
-    height: 220px;
-    margin: 14px auto 0px auto;
+    width: 200px;
+    height: 200px;
+    margin: 16px auto 0px auto;
     background-color: white;
     border-radius: 16px;
-    border: 2px solid #f0f0f0;
+    border: 2px solid #fc8019;
     padding: 8px;
-    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
 .qr-box img{
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    border-radius: 8px;
 }
 
-/* scan line jo upar neeche hilegi */
 .qr-scan-line{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 3px;
-    background-color: #e50000;
-    box-shadow: 0px 0px 10px #e50000;
+    background-color: #fc8019;
     animation: scanChalo 2s infinite;
 }
 
 @keyframes scanChalo{
-    0%{ top: 10%; }
-    50%{ top: 90%; }
-    100%{ top: 10%; }
+    0%{ top: 5%; }
+    50%{ top: 95%; }
+    100%{ top: 5%; }
 }
 
 .upi-apps{
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-top: 14px;
+    margin-top: 16px;
     flex-wrap: wrap;
 }
 
 .upi-apps span{
     font-size: 10px;
-    background-color: #f5f5f5;
-    padding: 5px 10px;
+    background-color: #f4f5f7;
+    padding: 5px 12px;
     border-radius: 20px;
-    border: 1px solid #eee;
+    border: 1px solid #e0e0e0;
+    color: #686b78;
 }
 
 .pay-actions{
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 10px;
-    margin-top: 16px;
+    margin-top: 18px;
 }
 
 .btn-paid{
-    background-color: #00a651;
+    background-color: #1ba672;
     color: white;
     border: none;
     padding: 14px;
     border-radius: 12px;
-    font-weight: bold;
-    font-size: 13px;
+    font-weight: 700;
+    font-size: 13.5px;
     cursor: pointer;
-    transition: 0.2s;
+    box-shadow: 0 4px 12px rgba(27, 166, 114, 0.3);
 }
 
 .btn-paid:hover{
-    background-color: #008a43;
-    transform: scale(1.03);
+    background-color: #158f61;
 }
 
 .btn-cancel{
-    background-color: white;
-    color: #111;
-    border: 1.5px solid #eee;
+    background-color: #f4f5f7;
+    color: #282c3f;
+    border: 1px solid #d4d5d9;
     padding: 14px;
     border-radius: 12px;
-    font-size: 13px;
+    font-size: 13.5px;
     cursor: pointer;
+}
+
+/* dark */
+/* ============ DARK MODE STYLES ============ */
+body.dark-mode {
+    background-color: #121212 !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode .red-top, 
+body.dark-mode .topbar, 
+body.dark-mode .white-section, 
+body.dark-mode .black-section, 
+body.dark-mode .hero, 
+body.dark-mode .cats, 
+body.dark-mode .dish, 
+body.dark-mode .h-card, 
+body.dark-mode .why-box, 
+body.dark-mode .offer-card, 
+body.dark-mode .step, 
+body.dark-mode .cartbar, 
+body.dark-mode .modal-new {
+    background-color: #1e1e1e !important;
+    color: #f1f1f1 !important;
+    border-color: #333333 !important;
+}
+
+body.dark-mode .red-top b, 
+body.dark-mode .red-top span, 
+body.dark-mode .red-hero h1 span, 
+body.dark-mode .h-card p, 
+body.dark-mode .price, 
+body.dark-mode .offer-strip b {
+    color: #ff9933 !important;
+}
+
+body.dark-mode .hero input[type="text"], 
+body.dark-mode .hero .menu-search, 
+body.dark-mode .search-bar-menu, 
+body.dark-mode .search-box {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+    border-color: #444444 !important;
+}
+
+body.dark-mode .black-strip {
+    background-color: #181818 !important;
+}
+
+body.dark-mode .theme-btn {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+    border-color: #444444 !important;
 }

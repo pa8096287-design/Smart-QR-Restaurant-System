@@ -24,10 +24,10 @@
 
   <!-- SEARCH BAR YAHAN PE AYEGA - AB KAAM KAREGA -->
   <div style="margin-top:14px; position:relative;">
-    <input type="text" id="searchInput" placeholder="🔍 Search karo - Biryani, Pizza, Paneer..."
+    <input type="text" id="searchInput" placeholder=" Search karo - Biryani, Pizza, Paneer..."
     style="width:100%; padding:13px 15px 13px 40px; border-radius:12px; border:1.5px solid #ffcccc; font-size:13px; outline:none; background:white;"
     onkeyup="searchDishes()">
-    <span style="position:absolute; left:14px; top:13px;">🔍</span>
+    <span style="position:absolute; left:14px; top:13px;"></span>
   </div>
 
   <div style="display:flex; gap:8px; margin-top:12px;">
@@ -82,18 +82,16 @@
     </div>
 
     <h3 style="margin-top:12px;">Ayush Upadhyay</h3>
-    <p style="font-size:11px; color:#888;">UPI ID: apna@upi • Scan with any UPI app</p>
+    <p style="font-size:11px; color:#888;">payment 91+6395541408 • Scan with any UPI app</p>
 
     <div class="upi-apps">
-      <span>📱 GPay</span><span>📱 PhonePe</span><span>📱 Paytm</span><span>📱 BHIM</span>
+      <span> GPay</span><span> PhonePe</span><span> Paytm</span><span> BHIM</span>
     </div>
 
     <div class="pay-actions">
-      <button class="btn-paid" onclick="paymentDone()">✅ Payment Ho Gaya</button>
+    <button class="btn-paid" onclick="sendOrderToBackend()">✅ Payment Ho Gaya</button>
       <button class="btn-cancel" onclick="closePay()">Cancel</button>
     </div>
-
-    <p style="font-size:10px; color:#aaa; margin-top:10px; text-align:center;">⏱️ QR 5 minute ke liye valid hai • Auto check ho jayega</p>
 
   </div>
 </div>
