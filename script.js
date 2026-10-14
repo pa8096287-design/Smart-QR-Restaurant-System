@@ -201,7 +201,12 @@ function sendOrderToBackend() {
         totalAmount: parseFloat(totalVal)
     };
 
-    fetch('http://localhost:5000/api/orders', {
+    // Auto detect current domain (local par localhost, live par render)
+    var baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+        ? 'http://localhost:5000' 
+        : 'https://smart-qr-restaurant-system.onrender.com';
+
+    fetch(baseUrl + '/api/orders', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
