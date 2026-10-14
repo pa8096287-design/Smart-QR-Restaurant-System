@@ -1,11 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script>
-  // qr.html ka link agar kisi purane QR me hai toh use index.html pe bhej do
-  var q = window.location.search;
-  window.location.href = 'index.html' + q;
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Table QR Codes</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background: #f0f2f5; padding: 30px; text-align: center; }
+        h1 { color: #333; margin-bottom: 10px; }
+        p { color: #666; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .card h3 { color: #ff4d4d; margin-bottom: 10px; }
+        .card img { margin: 10px 0; border: 1px solid #eee; padding: 5px; border-radius: 8px; }
+        .url-text { font-size: 11px; color: #888; word-break: break-all; margin-top: 10px; }
+        .btn-link { display: inline-block; margin-top: 10px; padding: 6px 12px; background: black; color: white; text-decoration: none; border-radius: 6px; font-size: 12px; font-weight: bold; }
+    </style>
 </head>
-<body>Redirecting...</body>
+<body>
+
+    <div id="redirectMsg" style="padding: 50px; font-size: 18px; color: #555;">Redirecting to menu...</div>
+
+    <div id="generatorView" style="display: none;">
+        <h1>🖨️ Restaurant Table QR Codes</h1>
+        <p>In QR codes ko print karke apni tables par laga do. Customer scan karega toh direct ussi table ka menu khulega!</p>
+        <div id="qrContainer" class="grid"></div>
+    </div>
+
+    <script>
+        var q = window.location.search;
+        
+        // Agar URL me table parameter hai, toh seedha index.html pe bhej do (Purane QR support ke liye)
+        if (q.includes('table')) {
+            window.location.href = 'index.html' + q;
+        } else {
+            // Agar koi seedha qr.html khole, toh saari tables ke QR codes dikhao
+            document.getElementById('redirectMsg').style.display = 'none';
+            document.getElementById('generatorView').style.display = 'block';
+
+            const baseUrl = window.location.origin + "/index.html";
+            const container = document.getElementById('qrContainer');
+            const totalTables = 6; // Yahan jitni tables chahiye utni set kar sakta hai
+
+            let html = "";
+            for (let i = 1; i <= totalTables; i++) {
+                let targetUrl = `${baseUrl}?table=${i}`;
+                let qrImgUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=` + encodeURIComponent(targetUrl);
+                
+                html += `
+                    <div class="card">
+                        <h3>Table ${i}</h3>
+                        <img src="${qrImgUrl}" alt="QR Table ${i}">
+                        <div class="url-text">${targetUrl}</div>
+                        <a href="${targetUrl}" target="_blank" class="btn-link">Test Menu 🔗</a>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+    </script>
+</body>
 </html>
