@@ -10,12 +10,16 @@ app.use(cors());
 // Frontend files ko direct backend port se serve karne ke liye
 app.use(express.static(__dirname));
 
-// MySQL Database Connection setup (Ab yahan process.env se details uthayega)
+// MySQL Database Connection setup (Aiven Cloud SSL aur Port support ke sath)
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 11930,
+    ssl: {
+        rejectUnauthorized: false // Aiven Cloud MySQL connection ke liye compulsory hai
+    }
 });
 
 db.connect((err) => {
