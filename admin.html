@@ -40,8 +40,13 @@
     <div id="empty" class="empty"><h1>📭</h1><h3>Koi active order nahi hai</h3></div>
 
     <script>
+        // Dynamic API domain detector
+        const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? 'http://localhost:5000'
+            : 'https://smart-qr-restaurant-system.onrender.com';
+
         function loadOrders() {
-            fetch('/api/orders?t=' + Date.now())
+            fetch(API_BASE + '/api/orders?t=' + Date.now())
                 .then(res => res.json())
                 .then(data => {
                     let box = document.getElementById('orders');
@@ -63,9 +68,9 @@
                         <div class="order" id="order-${o.order_id}">
                             <div style="display:flex;justify-content:space-between">
                                 <span class="badge">Table ${o.table_no}</span>
-                                <small style="color:#666;">${o.created_at}</small>
+                                <small style="color:#666;">${o.created_at ? new Date(o.created_at).toLocaleTimeString() : ''}</small>
                             </div>
-                            <p style="margin:10px 0"><b>Dishes:</b> ${o.items}</p>
+                            <p style="margin:10px 0"><b>Dishes:</b> ${o.items || 'N/A'}</p>
                             <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px dashed #eee;padding-top:10px">
                                 <b>₹${o.total_amount}</b>
                                 <button onclick="markServed(${o.order_id})" style="background:black;color:white">Mark Served ✅</button>
@@ -77,8 +82,7 @@
         }
 
         function markServed(orderId) {
-            // Backend se us order ko database se hamesha ke liye delete kar denge
-            fetch('/api/orders/' + orderId, {
+            fetch(API_BASE + '/api/orders/' + orderId, {
                 method: 'DELETE'
             })
             .then(res => res.json())
@@ -94,7 +98,7 @@
             .catch(err => console.log('Error deleting order:', err));
         }
 
-        // Page khulte hi load ho aur har 5 second mein apne aap naye orders fetch kare
+        // Page khulte hi load ho aur har 5 second mein auto-refresh kare
         loadOrders();
         setInterval(loadOrders, 5000);
     </script>
