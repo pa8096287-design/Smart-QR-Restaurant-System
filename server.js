@@ -90,12 +90,25 @@ app.post('/api/orders', (req, res) => {
     });
 });
 
-// 2. API Endpoint: Kitchen screen ke liye orders fetch karne ke liye
+// 2. API Endpoint: Kitchen screen ke liye orders fetch karne ke liye (Fixed for strict mode)
 app.get('/api/orders', (req, res) => {
-    const query = 'SELECT o.order_id, o.table_no, o.total_amount, o.status, o.created_at, GROUP_CONCAT(i.dish_name SEPARATOR ", ") as items FROM orders o LEFT JOIN order_items i ON o.order_id = i.order_id GROUP BY o.order_id ORDER BY o.order_id DESC';
+    const query = `
+        SELECT 
+            o.order_id, 
+            o.table_no, 
+            o.total_amount, 
+            o.status, 
+            o.created_at, 
+            COALESCE(GROUP_CONCAT(i.dish_name SEPARATOR ', '), 'No items') as items 
+        FROM orders o 
+        LEFT JOIN order_items i ON o.order_id = i.order_id 
+        GROUP BY o.order_id, o.table_no, o.total_amount, o.status, o.created_at 
+        ORDER BY o.order_id DESC
+    `;
     
     db.query(query, (err, results) => {
         if (err) {
+            console.error("SQL Fetch Error:", err.message);
             return res.status(500).json({ error: err.message });
         }
         res.json(results || []);
