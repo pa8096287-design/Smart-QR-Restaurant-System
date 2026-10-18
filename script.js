@@ -1,6 +1,6 @@
 // Ayush Restaurant - Menu & Ordering Script
 
-// Saare dishes ka data
+// Saare dishes ka data (Lassi permanent price set to ₹1)
 var allDishes = [
     {name:"Veg Spring Roll", desc:"Crispy 4 pcs - starter", price:120, cat:"Starter", emoji:"🥟"},
     {name:"Paneer Tikka", desc:"8 pcs spicy - starter", price:220, cat:"Starter", emoji:"🍢"},
@@ -14,14 +14,14 @@ var allDishes = [
     {name:"Veg Biryani", desc:"Veg dum - biryani", price:220, cat:"Biryani", emoji:"🍚"},
     {name:"Cheese Pizza", desc:"Extra cheese - main course", price:270, cat:"Main Course", emoji:"🍕"},
     {name:"Cold Drink", desc:"Coke 300ml - drinks", price:40, cat:"Drinks", emoji:"🥤"},
-    {name:"Lassi", desc:"Sweet lassi - drinks", price:60, cat:"Drinks", emoji:"🥛"}
+    {name:"Lassi", desc:"Sweet lassi - drinks", price:1, cat:"Drinks", emoji:"🥛"}
 ];
 
 var cart = [];
 var currentCat = "All";
 
-// Client UPI Configuration
-var RESTAURANT_UPI_ID = "6395541408@ybl"; // Actual UPI ID
+// Client UPI Configuration (YES Bank VPA)
+var RESTAURANT_UPI_ID = "6395541408@nyes";
 var RESTAURANT_NAME = "Ayush Restaurant";
 
 // Table number extraction
@@ -196,22 +196,27 @@ function openPay(){
     if(payModal) payModal.style.display = "flex";
 }
 
-// Flipkart / Swiggy Style Direct Intent & Order Handler
+// Single-click Payment & Direct App Launcher
 function selectPayment(method) {
     var totalSpan = document.getElementById('total');
     var totalVal = totalSpan ? totalSpan.innerText.trim() : '0';
 
     if (method === 'COUNTER') {
-        // Direct Counter Order
         sendOrderToBackend('COUNTER');
     } else if (method === 'ONLINE') {
-        // Flipkart Style Direct Deep-link Intent Protocol URL
-        var upiLink = "upi://pay?pa=" + RESTAURANT_UPI_ID + "&pn=" + encodeURIComponent(RESTAURANT_NAME) + "&am=" + totalVal + "&tn=Ayush_Restaurant_Table_" + tableNo + "&cu=INR";
+        // Clean Deep-link Intent URL
+        var upiLink = "upi://pay?pa=" + RESTAURANT_UPI_ID + 
+                      "&pn=" + encodeURIComponent(RESTAURANT_NAME) + 
+                      "&am=" + totalVal + 
+                      "&cu=INR&tn=" + encodeURIComponent("Ayush Restaurant Table " + tableNo);
 
-        // Direct Mobile UPI App Trigger (Opens GPay / PhonePe / Paytm / BHIM)
-        window.location.href = upiLink;
+        // Direct Mobile UPI App Trigger or Desktop Fallback
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            window.location.href = upiLink;
+        } else {
+            window.open("https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(upiLink), "_blank");
+        }
 
-        // Direct Order Dispatch to Backend & Kitchen
         sendOrderToBackend('ONLINE');
     }
 }
