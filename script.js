@@ -199,7 +199,7 @@ function openPay(){
     if(payModal) payModal.style.display = "flex";
 }
 
-// Payment trigger via Razorpay Gateway (UPI Prioritized)
+// Payment trigger via Razorpay Gateway (Forced Direct UPI Mode)
 function selectPayment(method) {
     var totalSpan = document.getElementById('total');
     var totalVal = totalSpan ? totalSpan.innerText.trim() : '0';
@@ -219,28 +219,14 @@ function selectPayment(method) {
             "currency": "INR",
             "name": "Ayush Restaurant",
             "description": "Table " + tableNo + " Order Payment",
-            "config": {
-                "display": {
-                    "blocks": {
-                        "utib": {
-                            "name": "Pay via UPI / QR",
-                            "instruments": [
-                                {
-                                    "method": "upi"
-                                }
-                            ]
-                        },
-                        "other": {
-                            "name": "Other Payment Options",
-                            "instruments": [
-                                { "method": "card" },
-                                { "method": "netbanking" },
-                                { "method": "wallet" }
-                            ]
-                        }
-                    },
-                    "sequence": ["block.utib", "block.other"]
-                }
+            "method": {
+                "upi": true,
+                "card": true,
+                "netbanking": true,
+                "wallet": true
+            },
+            "upi": {
+                "flow": "intent"
             },
             "handler": function (response) {
                 // Verified Payment Success Callback
