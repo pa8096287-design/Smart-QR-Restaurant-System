@@ -1,5 +1,8 @@
 // Ayush Restaurant - Menu & Ordering Script
 
+// Razorpay Key Configuration
+var RAZORPAY_KEY_ID = "rzp_test_TpPBqUoN1Hj5wj";
+
 // Saare dishes ka data (Lassi permanent price set to ₹1)
 var allDishes = [
     {name:"Veg Spring Roll", desc:"Crispy 4 pcs - starter", price:120, cat:"Starter", emoji:"🥟"},
@@ -20,7 +23,7 @@ var allDishes = [
 var cart = [];
 var currentCat = "All";
 
-// Client UPI Configuration (YES Bank VPA)
+// Client UPI Configuration
 var RESTAURANT_UPI_ID = "6395541408@nyes";
 var RESTAURANT_NAME = "Ayush Restaurant";
 
@@ -196,28 +199,45 @@ function openPay(){
     if(payModal) payModal.style.display = "flex";
 }
 
-// Single-click Payment & Direct App Launcher
+// Payment trigger via Razorpay Gateway
 function selectPayment(method) {
     var totalSpan = document.getElementById('total');
     var totalVal = totalSpan ? totalSpan.innerText.trim() : '0';
+    var amountInPaise = Math.round(parseFloat(totalVal) * 100);
 
     if (method === 'COUNTER') {
         sendOrderToBackend('COUNTER');
     } else if (method === 'ONLINE') {
-        // Clean Deep-link Intent URL
-        var upiLink = "upi://pay?pa=" + RESTAURANT_UPI_ID + 
-                      "&pn=" + encodeURIComponent(RESTAURANT_NAME) + 
-                      "&am=" + totalVal + 
-                      "&cu=INR&tn=" + encodeURIComponent("Ayush Restaurant Table " + tableNo);
-
-        // Direct Mobile UPI App Trigger or Desktop Fallback
-        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            window.location.href = upiLink;
-        } else {
-            window.open("https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(upiLink), "_blank");
+        if (amountInPaise <= 0) {
+            alert("Cart total valid nahi hai!");
+            return;
         }
 
-        sendOrderToBackend('ONLINE');
+        var options = {
+            "key": RAZORPAY_KEY_ID,
+            "amount": amountInPaise,
+            "currency": "INR",
+            "name": "Ayush Restaurant",
+            "description": "Table " + tableNo + " Order Payment",
+            "handler": function (response) {
+                // Verified Payment Success Callback
+                sendOrderToBackend('ONLINE', response.razorpay_payment_id);
+            },
+            "prefill": {
+                "name": "Table " + tableNo
+            },
+            "theme": {
+                "color": "#e50000"
+            },
+            "modal": {
+                "ondismiss": function() {
+                    alert("Payment cancelled! Kitchen dashboard me order nahi bheja gaya.");
+                }
+            }
+        };
+
+        var rzp = new Razorpay(options);
+        rzp.open();
     }
 }
 
@@ -232,8 +252,8 @@ function closePaymentModal(){
     closePay();
 }
 
-// Order dispatch to backend with payment method tag
-function sendOrderToBackend(paymentMethod) {
+// Order dispatch to backend (Only executes after successful payment confirmation)
+function sendOrderToBackend(paymentMethod, paymentId) {
     var pMethod = paymentMethod || 'ONLINE';
     var totalSpan = document.getElementById('total');
     var totalVal = totalSpan ? totalSpan.innerText.trim() : '0';
@@ -242,7 +262,8 @@ function sendOrderToBackend(paymentMethod) {
         tableNo: tableNo,
         items: cart,
         totalAmount: parseFloat(totalVal),
-        payment_method: pMethod
+        payment_method: pMethod,
+        payment_id: paymentId || null
     };
 
     var baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
@@ -260,7 +281,7 @@ function sendOrderToBackend(paymentMethod) {
     .then(data => {
         if(data.success) {
             if(pMethod === 'ONLINE'){
-                alert('Order Placed! UPI Payment App open ho raha hai & Kitchen me order chala gaya! 🎉');
+                alert('Payment Verified & Successful! 🎉 Order Kitchen me chala gaya.');
             } else {
                 alert('Order Placed Successfully! Please counter par pay kar dena. 🧾');
             }

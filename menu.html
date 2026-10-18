@@ -6,6 +6,9 @@
   <title>Ayush Restaurant</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Razorpay Payment Gateway Script -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
   <div class="topbar">
@@ -57,7 +60,7 @@
     <button onclick="openPay()">Pay ₹<span id="payTotal">0</span> & Order Now</button>
   </div>
 
-  <!-- SEAMLESS PAYMENT MODAL (NO QR CODE, NO STATIC IMAGE, NO 'PAYMENT HO GAYA' BUTTON) -->
+  <!-- SEAMLESS PAYMENT MODAL -->
   <div id="payModal" style="display:none;" class="modal-overlay">
     <div class="modal-new" style="background:#fff; padding:20px; border-radius:16px; width:90%; max-width:380px; margin:auto;">
       
@@ -81,7 +84,7 @@
       <!-- DIRECT ACTION BUTTONS -->
       <div style="display:flex; flex-direction:column; gap:12px;">
         <button onclick="selectPayment('ONLINE')" style="width:100%; padding:14px; background:#28a745; color:white; border:none; border-radius:10px; font-weight:bold; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow: 0 4px 12px rgba(40,167,69,0.2);">
-          ⚡ Pay Online (GPay / PhonePe)
+          ⚡ Pay Online (GPay / PhonePe / Card)
         </button>
 
         <button onclick="selectPayment('COUNTER')" style="width:100%; padding:14px; background:#007bff; color:white; border:none; border-radius:10px; font-weight:bold; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow: 0 4px 12px rgba(0,123,255,0.2);">
