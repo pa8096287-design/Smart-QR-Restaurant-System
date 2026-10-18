@@ -126,6 +126,41 @@
   </div>
 </section>
 
+<!-- Payment Options Modal Popup -->
+<div id="paymentModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+  <div style="background:#fff; padding:25px; border-radius:16px; width:90%; max-width:400px; text-align:center; font-family:sans-serif;">
+    
+    <h3 style="margin-bottom:10px; color:#222;">Select Payment Method</h3>
+    <p style="font-size:14px; color:#666; margin-bottom:20px;">Total Amount: <b id="modalTotalAmount" style="color:#e63946;">₹0</b></p>
+    
+    <!-- Option 1: Online UPI Payment -->
+    <button onclick="selectPayment('ONLINE')" style="width:100%; padding:12px; margin-bottom:10px; background:#28a745; color:#fff; border:none; border-radius:8px; font-weight:bold; font-size:14px; cursor:pointer;">
+      💳 Pay Online (UPI / GPay / PhonePe)
+    </button>
+    
+    <!-- Option 2: Pay at Counter -->
+    <button onclick="selectPayment('COUNTER')" style="width:100%; padding:12px; background:#007bff; color:#fff; border:none; border-radius:8px; font-weight:bold; font-size:14px; cursor:pointer;">
+      💵 Pay at Counter / After Meal
+    </button>
+
+    <!-- Dynamic UPI QR Section -->
+    <div id="upiQrSection" style="display:none; margin-top:20px; border-top:1px solid #eee; padding-top:15px;">
+      <p style="font-size:13px; color:#333; font-weight:bold; margin-bottom:10px;">Scan QR via any UPI App to Pay:</p>
+      <img id="upiQrImg" src="" alt="UPI QR Code" style="width:180px; height:180px; border:1px solid #ddd; padding:5px; border-radius:8px;">
+      <p style="font-size:11px; color:#777; margin-top:5px;">Amount pre-filled dynamically.</p>
+      
+      <button onclick="confirmOrderWithPayment('ONLINE')" style="margin-top:15px; width:100%; padding:10px; background:#111; color:#fff; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
+        ✅ I Have Paid - Confirm Order
+      </button>
+    </div>
+
+    <!-- Close Modal Button -->
+    <button onclick="closePaymentModal()" style="margin-top:15px; background:transparent; border:none; color:#888; text-decoration:underline; cursor:pointer; font-size:12px;">Cancel</button>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
 <script>
 // Table Detection Logic from URL parameters
 var url = new URLSearchParams(window.location.search);

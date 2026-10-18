@@ -15,28 +15,29 @@
 
   <div class="hero">
 
-  <div style="display:flex; justify-content:space-between; align-items:center;">
-    <h1 style="font-size:22px; line-height:1.2;">Bhookh Lagi Hai?<br><span style="color:#e50000;">Order Karo Yaar! 🔥</span></h1>
-    <div style="background:#111; color:white; font-size:11px; padding:6px 12px; border-radius:20px;">⏱️ 20 min</div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h1 style="font-size:22px; line-height:1.2;">Bhookh Lagi Hai?<br><span style="color:#e50000;">Order Karo Yaar! 🔥</span></h1>
+      <div style="background:#111; color:white; font-size:11px; padding:6px 12px; border-radius:20px;">⏱️ 20 min</div>
+    </div>
+
+    <p style="margin-top:6px;">Table <span id="t2">1</span> se order • 50+ dishes ready</p>
+
+    <!-- SEARCH BAR -->
+    <div style="margin-top:14px; position:relative;">
+      <input type="text" id="searchInput" placeholder=" Search karo - Biryani, Pizza, Paneer..."
+      style="width:100%; padding:13px 15px 13px 40px; border-radius:12px; border:1.5px solid #ffcccc; font-size:13px; outline:none; background:white;"
+      onkeyup="searchDishes()">
+      <span style="position:absolute; left:14px; top:13px;">🔍</span>
+    </div>
+
+    <div style="display:flex; gap:8px; margin-top:12px;">
+      <span style="background:#fff0f0; color:#e50000; font-size:10px; padding:5px 10px; border-radius:20px; border:1px solid #ffcccc;">🔥 FREE Delivery</span>
+      <span style="background:#f0f0f0; color:#333; font-size:10px; padding:5px 10px; border-radius:20px;">💰 Offline Price</span>
+      <span style="background:#f0f0f0; color:#333; font-size:10px; padding:5px 10px; border-radius:20px;">⭐ 4.8 Rating</span>
+    </div>
+
   </div>
 
-  <p style="margin-top:6px;">Table <span id="t2">1</span> se order • 50+ dishes ready</p>
-
-  <!-- SEARCH BAR YAHAN PE AYEGA - AB KAAM KAREGA -->
-  <div style="margin-top:14px; position:relative;">
-    <input type="text" id="searchInput" placeholder=" Search karo - Biryani, Pizza, Paneer..."
-    style="width:100%; padding:13px 15px 13px 40px; border-radius:12px; border:1.5px solid #ffcccc; font-size:13px; outline:none; background:white;"
-    onkeyup="searchDishes()">
-    <span style="position:absolute; left:14px; top:13px;"></span>
-  </div>
-
-  <div style="display:flex; gap:8px; margin-top:12px;">
-    <span style="background:#fff0f0; color:#e50000; font-size:10px; padding:5px 10px; border-radius:20px; border:1px solid #ffcccc;">🔥 FREE Delivery</span>
-    <span style="background:#f0f0f0; color:#333; font-size:10px; padding:5px 10px; border-radius:20px;">💰 Offline Price</span>
-    <span style="background:#f0f0f0; color:#333; font-size:10px; padding:5px 10px; border-radius:20px;">⭐ 4.8 Rating</span>
-  </div>
-
-</div>
   <div class="cats">
     <button class="active" onclick="filterDish('all',this)">All</button>
     <button onclick="filterDish('starter',this)">Starter</button>
@@ -56,45 +57,44 @@
     <button onclick="openPay()">Pay ₹<span id="payTotal">0</span> & Order Now</button>
   </div>
 
-  <!-- Payment QR Modal -->
-  <!-- PAYMENT MODAL - NEW PREMIUM UI -->
-<div id="payModal">
-  <div class="modal-new">
-    
-    <div class="pay-top">
-      <div class="pay-icon">🔒</div>
-      <div>
-        <b>Secure Payment</b>
-        <p>100% Safe & Instant</p>
+  <!-- SEAMLESS PAYMENT MODAL (NO QR CODE, NO STATIC IMAGE, NO 'PAYMENT HO GAYA' BUTTON) -->
+  <div id="payModal" style="display:none;" class="modal-overlay">
+    <div class="modal-new" style="background:#fff; padding:20px; border-radius:16px; width:90%; max-width:380px; margin:auto;">
+      
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:22px;">🔒</span>
+          <div>
+            <b style="font-size:16px;">Select Payment Mode</b>
+            <p style="font-size:11px; color:#666; margin:0;">Fast & Secure Checkout</p>
+          </div>
+        </div>
+        <span onclick="closePay()" style="cursor:pointer; font-weight:bold; font-size:20px; color:#888;">✕</span>
       </div>
-      <span onclick="closePay()" class="close-x">✕</span>
+
+      <div style="text-align:center; background:#f8f9fa; padding:15px; border-radius:12px; margin-bottom:20px; border:1px solid #eee;">
+        <p style="font-size:12px; color:#666; margin-bottom:4px;">Payable Amount</p>
+        <h1 style="color:#28a745; margin:0; font-size:32px; font-weight:bold;">₹<span id="mTotal">0</span></h1>
+        <span id="tForPay" style="background:#fff0f0; color:#e50000; font-size:11px; padding:3px 10px; border-radius:12px; font-weight:bold; display:inline-block; margin-top:6px;">Table 1 ke liye</span>
+      </div>
+
+      <!-- DIRECT ACTION BUTTONS -->
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <button onclick="selectPayment('ONLINE')" style="width:100%; padding:14px; background:#28a745; color:white; border:none; border-radius:10px; font-weight:bold; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow: 0 4px 12px rgba(40,167,69,0.2);">
+          ⚡ Pay Online (GPay / PhonePe)
+        </button>
+
+        <button onclick="selectPayment('COUNTER')" style="width:100%; padding:14px; background:#007bff; color:white; border:none; border-radius:10px; font-weight:bold; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow: 0 4px 12px rgba(0,123,255,0.2);">
+          💵 Pay at Counter
+        </button>
+      </div>
+
+      <div style="margin-top:15px;">
+        <button onclick="closePay()" style="width:100%; padding:10px; background:transparent; border:none; font-weight:bold; color:#888; cursor:pointer;">Cancel</button>
+      </div>
+
     </div>
-
-    <div class="pay-amount">
-      <p>Payable Amount</p>
-      <h1>₹<span id="mTotal">0</span></h1>
-      <span id="tForPay" style="background:#fff0f0; color:#e50000; font-size:11px; padding:4px 10px; border-radius:20px;">Table 1 ke liye</span>
-    </div>
-
-    <div class="qr-box">
-      <img src="Ayush upadhyay.png" id="myQRImg">
-      <div class="qr-scan-line"></div>
-    </div>
-
-    <h3 style="margin-top:12px;">Ayush Upadhyay</h3>
-    <p style="font-size:11px; color:#888;">payment 91+6395541408 • Scan with any UPI app</p>
-
-    <div class="upi-apps">
-      <span> GPay</span><span> PhonePe</span><span> Paytm</span><span> BHIM</span>
-    </div>
-
-    <div class="pay-actions">
-    <button class="btn-paid" onclick="sendOrderToBackend()">✅ Payment Ho Gaya</button>
-      <button class="btn-cancel" onclick="closePay()">Cancel</button>
-    </div>
-
   </div>
-</div>
 
   <script src="script.js"></script>
 </body>

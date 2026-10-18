@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitchen Dashboard</title>
+    <title>Kitchen Dashboard - Ayush Restaurant</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
         body { background: #f0f2f5; padding: 20px; }
@@ -13,7 +13,12 @@
         .stat h2 { color: #ff4d4d; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
         .order { background: white; padding: 15px; border-radius: 12px; border-left: 5px solid #22c55e; box-shadow: 0 2px 10px #0001; }
-        .badge { background: #ff4d4d; color: white; padding: 3px 10px; border-radius: 20px; font-size: 12px; }
+        .badge { background: #ff4d4d; color: white; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        
+        /* Payment Method Badges */
+        .pay-badge-online { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 3px 8px; border-radius: 15px; font-size: 11px; font-weight: bold; }
+        .pay-badge-counter { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 3px 8px; border-radius: 15px; font-size: 11px; font-weight: bold; }
+
         .empty { text-align: center; padding: 80px; color: #999; }
         button { padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
     </style>
@@ -22,7 +27,7 @@
 
     <div class="header">
         <div>
-            <h2>📦 Kitchen Dashboard</h2>
+            <h2>📦 Kitchen Dashboard - Ayush Restaurant</h2>
             <p style="font-size:12px;color:#888">Auto-refresh active hai (Har 5 sec mein naye orders aayenge)</p>
         </div>
         <div>
@@ -64,19 +69,32 @@
                     document.getElementById('c1').innerText = data.length;
                     document.getElementById('c2').innerText = '₹' + data.reduce((sum, ord) => sum + Number(ord.total_amount || 0), 0);
                     
-                    box.innerHTML = data.map(o => `
-                        <div class="order" id="order-${o.order_id}">
-                            <div style="display:flex;justify-content:space-between">
-                                <span class="badge">Table ${o.table_no}</span>
-                                <small style="color:#666;">${o.created_at ? new Date(o.created_at).toLocaleTimeString() : ''}</small>
+                    box.innerHTML = data.map(o => {
+                        // Payment Method Badge Logic
+                        let isOnline = o.payment_method === 'ONLINE';
+                        let payTagHtml = isOnline 
+                            ? `<span class="pay-badge-online">💳 ONLINE (UPI)</span>`
+                            : `<span class="pay-badge-counter">💵 PAY AT COUNTER</span>`;
+                        let borderColor = isOnline ? '#22c55e' : '#eab308';
+
+                        return `
+                            <div class="order" id="order-${o.order_id}" style="border-left-color: ${borderColor};">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                                    <span class="badge">Table ${o.table_no}</span>
+                                    ${payTagHtml}
+                                </div>
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                                    <small style="color:#666;">Order #${o.order_id}</small>
+                                    <small style="color:#888;">${o.created_at ? new Date(o.created_at).toLocaleTimeString() : ''}</small>
+                                </div>
+                                <p style="margin:10px 0; background:#f9f9f9; padding:8px; border-radius:6px; font-size:14px;"><b>Dishes:</b> ${o.items || 'N/A'}</p>
+                                <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px dashed #eee;padding-top:10px">
+                                    <b>Total: ₹${o.total_amount}</b>
+                                    <button onclick="markServed(${o.order_id})" style="background:black;color:white">Mark Served ✅</button>
+                                </div>
                             </div>
-                            <p style="margin:10px 0"><b>Dishes:</b> ${o.items || 'N/A'}</p>
-                            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px dashed #eee;padding-top:10px">
-                                <b>₹${o.total_amount}</b>
-                                <button onclick="markServed(${o.order_id})" style="background:black;color:white">Mark Served ✅</button>
-                            </div>
-                        </div>
-                    `).join('');
+                        `;
+                    }).join('');
                 })
                 .catch(err => console.log('Error fetching orders:', err));
         }

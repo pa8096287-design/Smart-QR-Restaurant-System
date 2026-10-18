@@ -36,6 +36,8 @@ db.connect((err) => {
             table_no VARCHAR(50) NOT NULL,
             total_amount DECIMAL(10, 2) NOT NULL,
             status VARCHAR(50) DEFAULT 'Pending',
+            payment_method VARCHAR(50) DEFAULT 'COUNTER',
+            payment_status VARCHAR(50) DEFAULT 'PENDING',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     `;
@@ -57,6 +59,13 @@ db.connect((err) => {
         }
         console.log('Orders table ready ho gaya! ✅');
 
+        // Existing DB Migration: Ensure columns exist if table was created previously
+        db.query("SHOW COLUMNS FROM orders LIKE 'payment_method'", (mErr, cols) => {
+            if (!mErr && cols.length === 0) {
+                db.query("ALTER TABLE orders ADD COLUMN payment_method VARCHAR(50) DEFAULT 'COUNTER', ADD COLUMN payment_status VARCHAR(50) DEFAULT 'PENDING'");
+            }
+        });
+
         db.query(createOrderItemsTable, (err2) => {
             if (err2) {
                 console.error('Error creating order_items table:', err2.message);
@@ -67,13 +76,17 @@ db.connect((err) => {
     });
 });
 
-// 1. API Endpoint: Customer order save karne ke liye
+// 1. API Endpoint: Customer order save karne ke liye (With Payment Tracking)
 app.post('/api/orders', (req, res) => {
-    const { tableNo, items, totalAmount } = req.body;
+    const { tableNo, items, totalAmount, payment_method } = req.body;
 
-    const orderQuery = 'INSERT INTO orders (table_no, total_amount) VALUES (?, ?)';
-    db.query(orderQuery, [tableNo, totalAmount], (err, result) => {
+    const pMethod = payment_method || 'COUNTER';
+    const pStatus = (pMethod === 'ONLINE') ? 'PAID' : 'PENDING';
+
+    const orderQuery = 'INSERT INTO orders (table_no, total_amount, payment_method, payment_status) VALUES (?, ?, ?, ?)';
+    db.query(orderQuery, [tableNo, totalAmount, pMethod, pStatus], (err, result) => {
         if (err) {
+            console.error("Order Save Error:", err.message);
             return res.status(500).json({ error: err.message });
         }
 
@@ -83,14 +96,21 @@ app.post('/api/orders', (req, res) => {
 
         db.query(itemQuery, [itemValues], (err2) => {
             if (err2) {
+                console.error("Order Items Save Error:", err2.message);
                 return res.status(500).json({ error: err2.message });
             }
-            res.json({ success: true, message: 'Order successfully save ho gaya!', orderId });
+            res.json({ 
+                success: true, 
+                message: 'Order successfully save ho gaya!', 
+                orderId,
+                payment_method: pMethod,
+                payment_status: pStatus
+            });
         });
     });
 });
 
-// 2. API Endpoint: Kitchen screen ke liye orders fetch karne ke liye (Fixed for strict mode)
+// 2. API Endpoint: Kitchen screen ke liye orders fetch karne ke liye
 app.get('/api/orders', (req, res) => {
     const query = `
         SELECT 
@@ -98,11 +118,13 @@ app.get('/api/orders', (req, res) => {
             o.table_no, 
             o.total_amount, 
             o.status, 
+            o.payment_method,
+            o.payment_status,
             o.created_at, 
             COALESCE(GROUP_CONCAT(i.dish_name SEPARATOR ', '), 'No items') as items 
         FROM orders o 
         LEFT JOIN order_items i ON o.order_id = i.order_id 
-        GROUP BY o.order_id, o.table_no, o.total_amount, o.status, o.created_at 
+        GROUP BY o.order_id, o.table_no, o.total_amount, o.status, o.payment_method, o.payment_status, o.created_at 
         ORDER BY o.order_id DESC
     `;
     

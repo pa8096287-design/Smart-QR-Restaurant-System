@@ -1,6 +1,6 @@
-// Apna Restaurant - 
-// Saare dishes ka data
+// Ayush Restaurant - Menu & Ordering Script
 
+// Saare dishes ka data
 var allDishes = [
     {name:"Veg Spring Roll", desc:"Crispy 4 pcs - starter", price:120, cat:"Starter", emoji:"🥟"},
     {name:"Paneer Tikka", desc:"8 pcs spicy - starter", price:220, cat:"Starter", emoji:"🍢"},
@@ -20,13 +20,24 @@ var allDishes = [
 var cart = [];
 var currentCat = "All";
 
-// table number nikalo
+// Client UPI Configuration
+var RESTAURANT_UPI_ID = "6395541408@ybl"; // Actual UPI ID
+var RESTAURANT_NAME = "Ayush Restaurant";
+
+// Table number extraction
 var urlParams = new URLSearchParams(window.location.search);
 var tableNo = urlParams.get('table');
 if(tableNo == null){ tableNo = 1; }
 
-// page load pe theme aur menu load karo
+// Page load initialization
 window.onload = function() {
+    var t1 = document.getElementById('t1');
+    var t2 = document.getElementById('t2');
+    var tForPay = document.getElementById('tForPay');
+    if(t1) t1.innerText = "TABLE " + tableNo;
+    if(t2) t2.innerText = tableNo;
+    if(tForPay) tForPay.innerText = "Table " + tableNo + " ke liye";
+
     var savedTheme = localStorage.getItem('restaurant_theme');
     if(savedTheme === 'dark'){
         document.body.classList.add('dark-mode');
@@ -34,7 +45,7 @@ window.onload = function() {
     showMenu(allDishes);
 };
 
-// Global Theme Toggle Function with Storage
+// Global Theme Toggle
 function toggleTheme() {
     document.body.classList.toggle('dark-mode');
     if(document.body.classList.contains('dark-mode')){
@@ -44,7 +55,7 @@ function toggleTheme() {
     }
 }
 
-// menu dikhane ka function
+// Menu rendering
 function showMenu(dishes){
     var menuDiv = document.getElementById('menu');
     if(!menuDiv){ return; }
@@ -61,7 +72,7 @@ function showMenu(dishes){
     }
 }
 
-// SEARCH WALA FUNCTION
+// Search Function
 function searchDishes(){
     var input = document.getElementById('searchInput');
     if(!input) return;
@@ -84,16 +95,14 @@ function searchDishes(){
 }
 
 // Category filter
-function filterCat(cat){
+function filterCat(cat, btnElem){
     currentCat = cat;
 
     var btns = document.querySelectorAll('.cats button');
     for(var i=0; i<btns.length; i++){
         btns[i].classList.remove('active');
-        if(btns[i].innerText.toLowerCase() === cat.toLowerCase()){
-            btns[i].classList.add('active');
-        }
     }
+    if(btnElem) btnElem.classList.add('active');
 
     var input = document.getElementById('searchInput');
     var word = "";
@@ -101,7 +110,7 @@ function filterCat(cat){
 
     var filtered = [];
     for(var j=0; j<allDishes.length; j++){
-        var matchCat = (cat == "All" || allDishes[j].cat.toLowerCase() == cat.toLowerCase());
+        var matchCat = (cat == "All" || cat == "all" || allDishes[j].cat.toLowerCase() == cat.toLowerCase());
         var matchSearch = (allDishes[j].name.toLowerCase().includes(word) || allDishes[j].cat.toLowerCase().includes(word) || allDishes[j].desc.toLowerCase().includes(word));
 
         if(matchCat && matchSearch){
@@ -110,6 +119,10 @@ function filterCat(cat){
     }
 
     showMenu(filtered);
+}
+
+function filterDish(cat, btnElem) {
+    filterCat(cat, btnElem);
 }
 
 // Add to cart
@@ -122,11 +135,12 @@ function addToCart(index, name, price){
     }
 }
 
-// CART UPDATE
+// Cart Update UI
 function updateCart(){
     var cartDiv = document.getElementById('cartbar');
     var itemsDiv = document.getElementById('cartItems');
-    var totalRowDiv = document.querySelector('.total-row');
+    var totalSpan = document.getElementById('total');
+    var payTotalSpan = document.getElementById('payTotal');
 
     if(!cartDiv || !itemsDiv) return;
 
@@ -140,24 +154,23 @@ function updateCart(){
     var itemsHtml = "";
     var total = 0;
     for(var i=0; i<cart.length; i++){
-        itemsHtml += "<span style='display:inline-flex; align-items:center; gap:6px;'>"+cart[i].name+" ₹"+cart[i].price+" <b onclick='removeOne("+i+")' style='background:black; color:white; width:16px; height:16px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; font-size:10px;'>✕</b></span>";
+        itemsHtml += "<span style='display:inline-flex; align-items:center; gap:6px; background:#fff0f0; padding:4px 8px; border-radius:6px; margin-right:5px; margin-bottom:5px; font-size:12px;'>"+cart[i].name+" ₹"+cart[i].price+" <b onclick='removeOne("+i+")' style='background:black; color:white; width:16px; height:16px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; font-size:10px;'>✕</b></span>";
         total = total + cart[i].price;
     }
 
     itemsDiv.innerHTML = itemsHtml;
-    
-    if(totalRowDiv){
-        totalRowDiv.innerHTML = '<span><b>'+cart.length+' items</b> | Total <b id="totalPrice">₹'+total+'</b></span><span onclick="clearCart()" style="color:#fc8019; font-size:12px; cursor:pointer; font-weight:bold;">Clear All 🗑️</span>';
-    }
+
+    if(totalSpan) totalSpan.innerText = total;
+    if(payTotalSpan) payTotalSpan.innerText = total;
 }
 
-// ek item remove karo
+// Remove single item
 function removeOne(index){
     cart.splice(index, 1);
     updateCart();
 }
 
-// pura cart khali karo
+// Clear full cart
 function clearCart(){
     if(confirm("Saare items hatane hain?")){
         cart = [];
@@ -165,43 +178,68 @@ function clearCart(){
     }
 }
 
+// Open Payment Selection Modal
 function openPay(){
-    var totalPriceElem = document.getElementById('totalPrice');
-    var totalVal = totalPriceElem ? totalPriceElem.innerText.replace('Total ₹','').replace('₹','').trim() : '0';
-    
+    if(cart.length === 0){
+        alert("Cart empty hai bhai!");
+        return;
+    }
+
+    var totalSpan = document.getElementById('total');
+    var totalVal = totalSpan ? totalSpan.innerText.trim() : '0';
+
     var mTotalElem = document.getElementById('mTotal');
     if(mTotalElem) mTotalElem.innerText = totalVal;
 
-    var payTotalElem = document.getElementById('payTotal');
-    if(payTotalElem) payTotalElem.innerText = totalVal;
-
     var payModal = document.getElementById('payModal');
+    if(!payModal) payModal = document.getElementById('paymentModal');
     if(payModal) payModal.style.display = "flex";
+}
 
-    var upiLink = "upi://pay?pa=apna@upi&pn=Ayush Upadhyay&am="+totalVal+"&cu=INR";
-    var qrImg = document.getElementById('myQRImg');
-    if(qrImg){
-        qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(upiLink);
+// Flipkart / Swiggy Style Direct Intent & Order Handler
+function selectPayment(method) {
+    var totalSpan = document.getElementById('total');
+    var totalVal = totalSpan ? totalSpan.innerText.trim() : '0';
+
+    if (method === 'COUNTER') {
+        // Direct Counter Order
+        sendOrderToBackend('COUNTER');
+    } else if (method === 'ONLINE') {
+        // Flipkart Style Direct Deep-link Intent Protocol URL
+        var upiLink = "upi://pay?pa=" + RESTAURANT_UPI_ID + "&pn=" + encodeURIComponent(RESTAURANT_NAME) + "&am=" + totalVal + "&tn=Ayush_Restaurant_Table_" + tableNo + "&cu=INR";
+
+        // Direct Mobile UPI App Trigger (Opens GPay / PhonePe / Paytm / BHIM)
+        window.location.href = upiLink;
+
+        // Direct Order Dispatch to Backend & Kitchen
+        sendOrderToBackend('ONLINE');
     }
 }
 
+// Close Payment Modal
 function closePay(){
     var payModal = document.getElementById('payModal');
+    if(!payModal) payModal = document.getElementById('paymentModal');
     if(payModal) payModal.style.display = "none";
 }
 
-// Yeh function backend server par order bhejega
-function sendOrderToBackend() {
-    var totalPriceElem = document.getElementById('totalPrice');
-    var totalVal = totalPriceElem ? totalPriceElem.innerText.replace('Total ₹','').replace('₹','').trim() : '0';
+function closePaymentModal(){
+    closePay();
+}
+
+// Order dispatch to backend with payment method tag
+function sendOrderToBackend(paymentMethod) {
+    var pMethod = paymentMethod || 'ONLINE';
+    var totalSpan = document.getElementById('total');
+    var totalVal = totalSpan ? totalSpan.innerText.trim() : '0';
 
     var orderData = {
         tableNo: tableNo,
         items: cart,
-        totalAmount: parseFloat(totalVal)
+        totalAmount: parseFloat(totalVal),
+        payment_method: pMethod
     };
 
-    // Auto detect current domain (local par localhost, live par render)
     var baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
         ? 'http://localhost:5000' 
         : 'https://smart-qr-restaurant-system.onrender.com';
@@ -216,7 +254,11 @@ function sendOrderToBackend() {
     .then(response => response.json())
     .then(data => {
         if(data.success) {
-            alert('Order successfully kitchen tak pahunch gaya! 🎉');
+            if(pMethod === 'ONLINE'){
+                alert('Order Placed! UPI Payment App open ho raha hai & Kitchen me order chala gaya! 🎉');
+            } else {
+                alert('Order Placed Successfully! Please counter par pay kar dena. 🧾');
+            }
             cart = [];
             updateCart();
             closePay();
@@ -226,6 +268,10 @@ function sendOrderToBackend() {
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Server se connect nahi ho pa raha bhai! Check karo ki server chal raha hai ya nahi.');
+        alert('Server se connect nahi ho pa raha bhai!');
     });
+}
+
+function confirmOrderWithPayment(paymentMethod) {
+    sendOrderToBackend(paymentMethod);
 }
