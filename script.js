@@ -199,52 +199,44 @@ function openPay(){
     if(payModal) payModal.style.display = "flex";
 }
 
-// Payment trigger via Secure Razorpay Gateway
+// Payment trigger via Direct UPI VPA / App Intent
 function selectPayment(method) {
     var totalSpan = document.getElementById('total');
     var totalVal = totalSpan ? totalSpan.innerText.trim() : '0';
-    var amountInPaise = Math.round(parseFloat(totalVal) * 100);
+    var amount = parseFloat(totalVal);
 
     if (method === 'COUNTER') {
         sendOrderToBackend('COUNTER');
     } else if (method === 'ONLINE') {
-        if (amountInPaise <= 0) {
+        if (amount <= 0) {
             alert("Cart total valid nahi hai!");
             return;
         }
 
-        var options = {
-            "key": RAZORPAY_KEY_ID,
-            "amount": amountInPaise,
-            "currency": "INR",
-            "name": "Ayush Restaurant",
-            "description": "Table " + tableNo + " Order Payment",
-            "handler": function (response) {
-                // VERIFIED GATEWAY CALLBACK ONLY: Strictly triggers if payment succeeds in Razorpay
-                if(response && response.razorpay_payment_id) {
-                    sendOrderToBackend('ONLINE', response.razorpay_payment_id);
-                } else {
-                    alert("Payment verify nahi ho paaye!");
-                }
-            },
-            "prefill": {
-                "name": "Table " + tableNo,
-                "contact": "9999999999",
-                "email": "test@example.com"
-            },
-            "theme": {
-                "color": "#e50000"
-            },
-            "modal": {
-                "ondismiss": function() {
-                    // Strictly blocks order dispatch if payment popup is closed or cancelled
-                    alert("Payment Cancelled! Kitchen me order nahi bheja gaya.");
-                }
-            }
-        };
+        // Direct UPI Deep Link for GPay / PhonePe / Paytm / BHIM
+        var upiID = RESTAURANT_UPI_ID || "6395541408@nyes";
+        var payeeName = RESTAURANT_NAME || "Ayush Restaurant";
+        var transactionNote = "Table " + tableNo + " Order Payment";
+        
+        var upiUrl = "upi://pay?pa=" + upiID + 
+                     "&pn=" + encodeURIComponent(payeeName) + 
+                     "&am=" + amount + 
+                     "&cu=INR" + 
+                     "&tn=" + encodeURIComponent(transactionNote);
 
-        var rzp = new Razorpay(options);
-        rzp.open();
+        // Mobile browsers par Direct UPI app chooser trigger karega
+        window.location.href = upiUrl;
+
+        // User ke UPI app se redirect hone ke baad confirmation box
+        setTimeout(function() {
+            var confirmed = confirm("Kya aapne UPI payment complete kar di?\n\n'OK' dabane par order kitchen dashboard me bhej diya jayega.");
+            if (confirmed) {
+                var directUpiPaymentId = "UPI_DIRECT_" + Date.now();
+                sendOrderToBackend('ONLINE', directUpiPaymentId);
+            } else {
+                alert("Payment cancel ho gaya! Order kitchen me nahi bheja gaya.");
+            }
+        }, 1500);
     }
 }
 
@@ -259,7 +251,7 @@ function closePaymentModal(){
     closePay();
 }
 
-// Order dispatch to backend (Only executes after verified payment)
+// Order dispatch to backend
 function sendOrderToBackend(paymentMethod, paymentId) {
     var pMethod = paymentMethod || 'ONLINE';
     var totalSpan = document.getElementById('total');
@@ -288,7 +280,7 @@ function sendOrderToBackend(paymentMethod, paymentId) {
     .then(data => {
         if(data.success) {
             if(pMethod === 'ONLINE'){
-                alert('Payment Verified & Successful! 🎉 Order Kitchen me chala gaya.');
+                alert('Payment Confirmed! 🎉 Order Kitchen me chala gaya.');
             } else {
                 alert('Order Placed Successfully! Please counter par pay kar dena. 🧾');
             }
